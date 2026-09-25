@@ -1,13 +1,21 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
+interface ScrollRevealProps {
+  children: ReactNode;
+  className?: string;
+  delay?: number; // milliseconds delay
+  direction?: "up" | "down" | "left" | "right" | "zoom";
+  threshold?: number;
+}
+
 export function ScrollReveal({
   children,
   className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
+  delay = 0,
+  direction = "up",
+  threshold = 0.12,
+}: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -21,17 +29,33 @@ export function ScrollReveal({
         setVisible(true);
         observer.unobserve(element);
       },
-      { threshold: 0.12, rootMargin: "0px 0px -48px" },
+      { threshold, rootMargin: "0px 0px -8% 0px" },
     );
 
     observer.observe(element);
     return () => observer.disconnect();
-  }, []);
+  }, [threshold]);
+
+  const directionClass = {
+    up: "scroll-reveal-up",
+    down: "scroll-reveal-down",
+    left: "scroll-reveal-left",
+    right: "scroll-reveal-right",
+    zoom: "scroll-reveal-zoom",
+  }[direction];
 
   return (
     <div
       ref={ref}
-      className={cn("scroll-reveal", visible && "scroll-reveal-visible", className)}
+      style={{
+        transitionDelay: delay ? `${delay}ms` : undefined,
+      }}
+      className={cn(
+        "scroll-reveal",
+        directionClass,
+        visible && "scroll-reveal-visible",
+        className
+      )}
     >
       {children}
     </div>

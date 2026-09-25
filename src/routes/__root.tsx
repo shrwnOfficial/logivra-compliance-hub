@@ -78,14 +78,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "SysComp — Automated environmental and EHS compliance" },
-      { name: "description", content: "Compliance software for EHS teams: permits in, trackable obligations out." },
-      { name: "author", content: "SysComp" },
-      { property: "og:title", content: "SysComp" },
-      { property: "og:description", content: "Compliance software for EHS teams." },
+      { title: "Logivra — Automated Environmental & EHS Compliance" },
+      { name: "description", content: "Intelligent compliance software for EHS teams: permits in, trackable obligations out." },
+      { name: "author", content: "Logivra" },
+      { property: "og:title", content: "Logivra Compliance Hub" },
+      { property: "og:description", content: "Automated environmental compliance and permit-to-task engine." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "@Logivra" },
     ],
     links: [
       {

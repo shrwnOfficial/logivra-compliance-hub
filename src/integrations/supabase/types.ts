@@ -101,6 +101,12 @@ export type Database = {
         }
         Returns: boolean
       }
+      confirm_whitelisted_admin: {
+        Args: {
+          p_email: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
       app_role: "admin" | "sales" | "user"
