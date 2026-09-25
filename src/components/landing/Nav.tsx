@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Leaf, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { GreenUdyogLogo } from "@/components/landing/GreenUdyogLogo";
 
 const links = [
   { href: "#how-it-works", label: "How it works" },
   { href: "#features", label: "Platform" },
   { href: "#who", label: "Who it's for" },
-  { href: "#trust", label: "Security" },
   { href: "#faq", label: "FAQ" },
 ];
 
@@ -14,15 +14,10 @@ export function Nav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-border/80 bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
-        <a href="#top" className="flex items-center gap-2">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <Leaf className="h-5 w-5" />
-          </span>
-          <span className="font-display text-lg font-semibold tracking-tight text-foreground">
-            SysComp
-          </span>
+        <a href="#top" className="flex items-center">
+          <GreenUdyogLogo className="h-10 w-10" showWordmark />
         </a>
 
         <nav className="hidden items-center gap-7 md:flex">
@@ -30,22 +25,16 @@ export function Nav() {
             <a
               key={l.href}
               href={l.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className="text-sm text-muted-foreground transition-colors hover:text-primary"
             >
               {l.label}
             </a>
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
-          <a
-            href="/auth"
-            className="text-sm font-medium text-foreground transition-colors hover:text-primary"
-          >
-            Sign in
-          </a>
-          <Button asChild>
-            <a href="#demo">Book a demo</a>
+        <div className="hidden md:block">
+          <Button asChild size="cta" className="shadow-sm">
+            <a href="#demo">Free consultation</a>
           </Button>
         </div>
 
@@ -72,9 +61,9 @@ export function Nav() {
                 {l.label}
               </a>
             ))}
-            <Button asChild className="my-4">
+            <Button asChild size="cta" className="my-4">
               <a href="#demo" onClick={() => setOpen(false)}>
-                Book a demo
+                Free consultation
               </a>
             </Button>
           </nav>

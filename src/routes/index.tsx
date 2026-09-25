@@ -4,18 +4,19 @@ import { Hero } from "@/components/landing/Hero";
 import {
   Faq,
   Features,
-  FinalCta,
   HowItWorks,
   Problem,
+  SocialProof,
   Trust,
   WhoItsFor,
 } from "@/components/landing/Sections";
+import { BookFreeCall } from "@/components/landing/BookFreeCall";
 import { Footer } from "@/components/landing/Footer";
 import { ScrollReveal } from "@/components/landing/ScrollReveal";
 
-const title = "SysComp — Automated environmental and EHS compliance";
+const title = "GreenUdyog — Emissions clarity for small manufacturers";
 const description =
-  "SysComp reads your permits, regulations, and reports and turns them into trackable obligations with owners, deadlines, and audit-ready evidence.";
+  "Help Indian MSMEs track carbon and air pollution — stack limits, PM and GHG-related duties, and SPCB/CPCB scrutiny — book a free consultation.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -39,13 +40,30 @@ function Index() {
       <Nav />
       <main>
         <Hero />
-        <ScrollReveal><Problem /></ScrollReveal>
-        <ScrollReveal><HowItWorks /></ScrollReveal>
-        <ScrollReveal><Features /></ScrollReveal>
-        <ScrollReveal><WhoItsFor /></ScrollReveal>
-        <ScrollReveal><Trust /></ScrollReveal>
-        <ScrollReveal><Faq /></ScrollReveal>
-        <ScrollReveal><FinalCta /></ScrollReveal>
+        <ScrollReveal scale>
+          <Problem />
+        </ScrollReveal>
+        <ScrollReveal delay={0.05}>
+          <HowItWorks />
+        </ScrollReveal>
+        <ScrollReveal scale delay={0.05}>
+          <Features />
+        </ScrollReveal>
+        <ScrollReveal>
+          <WhoItsFor />
+        </ScrollReveal>
+        <ScrollReveal scale>
+          <SocialProof />
+        </ScrollReveal>
+        <ScrollReveal delay={0.05}>
+          <Trust />
+        </ScrollReveal>
+        <ScrollReveal>
+          <Faq />
+        </ScrollReveal>
+        <ScrollReveal scale>
+          <BookFreeCall />
+        </ScrollReveal>
       </main>
       <Footer />
     </div>

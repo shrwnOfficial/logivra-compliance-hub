@@ -1,0 +1,28 @@
+stages:
+  - verify
+
+variables:
+  BUN_INSTALL_CACHE_DIR: "$CI_PROJECT_DIR/.bun-cache"
+
+default:
+  image: oven/bun:1.2
+  cache:
+    key: bun-deps
+    paths:
+      - node_modules/
+      - .bun-cache/
+
+lint:
+  stage: verify
+  script:
+    - bun install --frozen-lockfile || bun install
+    - bun run lint
+
+build:
+  stage: verify
+  script:
+    - bun install --frozen-lockfile || bun install
+    - bun run build
+
+# Production deploy: connect this repo to Vercel (frontend) and Render (backend/)
+# with production branch `main` for automatic deploys on merge.

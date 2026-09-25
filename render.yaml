@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: greenudyog-api
+    runtime: docker
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /api/health
+    autoDeploy: true
+    branch: main
+    envVars:
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: SUPABASE_JWT_SECRET
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: ADMIN_NOTIFY_EMAILS
+        value: shaan.09042@gmail.com,shivankrao7@gmail.com
+      - key: CORS_ORIGINS
+        sync: false

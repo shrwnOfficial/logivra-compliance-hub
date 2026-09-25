@@ -6,12 +6,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { isAllowlistedAdminEmail } from "@/lib/admin-allowlist";
+import { isAdminUser } from "@/lib/admin-auth";
 
-const title = "SysComp team sign in";
-const description =
-  "Sign in to the SysComp sales workspace to review incoming demo requests.";
+const title = "GreenUdyog team sign in";
+const description = "Sign in to the GreenUdyog admin workspace.";
 
 export const Route = createFileRoute("/auth")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    redirect:
+      typeof search.redirect === "string" && search.redirect.startsWith("/")
+        ? search.redirect
+        : "/admin",
+  }),
   head: () => ({
     meta: [
       { title },
@@ -28,40 +35,47 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const { redirect: afterAuth } = Route.useSearch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    void supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: "/demo-requests" });
+    void supabase.auth.getSession().then(async ({ data }) => {
+      if (data.session && (await isAdminUser())) navigate({ to: afterAuth });
     });
-    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "SIGNED_IN" && session) navigate({ to: "/demo-requests" });
+    const { data: sub } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === "SIGNED_IN" && session && (await isAdminUser())) {
+        navigate({ to: afterAuth });
+      }
     });
     return () => sub.subscription.unsubscribe();
-  }, [navigate]);
+  }, [navigate, afterAuth]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
     try {
-      if (mode === "signup") {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { emailRedirectTo: `${window.location.origin}/demo-requests` },
-        });
-        if (error) throw error;
-        toast.success("Account created. Check your email to confirm it.");
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-        navigate({ to: "/demo-requests" });
+      const normalized = email.trim().toLowerCase();
+      if (!isAllowlistedAdminEmail(normalized)) {
+        toast.error("This email is not authorized for admin access.");
+        return;
       }
+      const { error } = await supabase.auth.signInWithPassword({
+        email: normalized,
+        password,
+      });
+      if (error) throw error;
+      if (!(await isAdminUser())) {
+        await supabase.auth.signOut();
+        toast.error(
+          "Account exists but admin role is missing. Ask the team to run: bun run seed:admins",
+        );
+        return;
+      }
+      navigate({ to: afterAuth });
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Something went wrong.");
+      toast.error(err instanceof Error ? err.message : "Sign in failed.");
     } finally {
       setBusy(false);
     }
@@ -76,7 +90,19 @@ function AuthPage() {
       return;
     }
     if (result.redirected) return;
-    navigate({ to: "/demo-requests" });
+    const { data } = await supabase.auth.getUser();
+    const googleEmail = data.user?.email?.toLowerCase();
+    if (!googleEmail || !isAllowlistedAdminEmail(googleEmail)) {
+      await supabase.auth.signOut();
+      toast.error("This Google account is not authorized for admin access.");
+      return;
+    }
+    if (!(await isAdminUser())) {
+      await supabase.auth.signOut();
+      toast.error("Admin role missing. Run seed:admins for this email.");
+      return;
+    }
+    navigate({ to: afterAuth });
   }
 
   return (
@@ -85,16 +111,15 @@ function AuthPage() {
         <Link to="/" className="text-xs text-muted-foreground hover:text-foreground">
           &larr; Back to site
         </Link>
-        <h1 className="mt-4 text-2xl font-semibold text-foreground">
-          {mode === "signin" ? "Sign in to SysComp" : "Create your team account"}
-        </h1>
+        <h1 className="mt-4 text-2xl font-semibold text-foreground">Sign in to GreenUdyog</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          For the SysComp sales and EHS team. Demo requests from the website appear here.
+          Founder admin access only (Shrawan, Shivank, Surya). Use the team password provided at
+          setup — accounts are pre-created; no signup or confirmation email needed.
         </p>
 
         <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
           <div>
-            <Label htmlFor="email">Work email</Label>
+            <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               type="email"
@@ -103,7 +128,7 @@ function AuthPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="mt-1.5 h-11"
-              placeholder="you@syscomp.com"
+              placeholder="shaan.09042@gmail.com"
             />
           </div>
           <div>
@@ -112,15 +137,14 @@ function AuthPage() {
               id="password"
               type="password"
               required
-              minLength={8}
-              autoComplete={mode === "signin" ? "current-password" : "new-password"}
+              autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="mt-1.5 h-11"
             />
           </div>
           <Button type="submit" disabled={busy} className="h-11 w-full text-base">
-            {busy ? "Please wait…" : mode === "signin" ? "Sign in" : "Create account"}
+            {busy ? "Please wait…" : "Sign in"}
           </Button>
         </form>
 
@@ -138,16 +162,6 @@ function AuthPage() {
         >
           Continue with Google
         </Button>
-
-        <button
-          type="button"
-          onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-          className="mt-6 w-full text-sm text-muted-foreground hover:text-foreground"
-        >
-          {mode === "signin"
-            ? "Need an account? Create one"
-            : "Already have an account? Sign in"}
-        </button>
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
 import {
   AlarmClock,
-  ArrowRight,
   BellRing,
   Building2,
   ClipboardList,
@@ -9,12 +8,11 @@ import {
   FolderCheck,
   Gauge,
   Lock,
-  Recycle,
+  Flame,
   ScanLine,
   ServerCog,
   Share2,
   Users,
-  Droplets,
   Wind,
 } from "lucide-react";
 import {
@@ -23,13 +21,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { supabase } from "@/integrations/supabase/client";
 import permit from "@/assets/permit.jpg";
 import facility from "@/assets/facility.jpg";
+import { ScrollRevealStagger, ScrollRevealItem } from "@/components/landing/ScrollReveal";
 
 function SectionHeading({
   eyebrow,
@@ -44,9 +38,7 @@ function SectionHeading({
 }) {
   return (
     <div className={center ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
-      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">
-        {eyebrow}
-      </p>
+      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">{eyebrow}</p>
       <h2 className="mt-3 text-3xl font-semibold text-foreground sm:text-4xl">{title}</h2>
       <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
         {description}
@@ -59,18 +51,18 @@ export function Problem() {
   const pains = [
     {
       icon: FileStack,
-      title: "Obligations buried in PDFs",
-      body: "A single air permit can hide dozens of duties across 80 pages. Reading them all takes days, and rereading them after a renewal takes days again.",
+      title: "Emission limits buried in consent PDFs",
+      body: "Your CTO may list mg/Nm³ caps for PM, SO₂, NOx, or other parameters across dozens of pages. MSME teams often discover a limit only after a test fails or a notice arrives.",
     },
     {
       icon: AlarmClock,
-      title: "Deadlines tracked by memory",
-      body: "Spreadsheets and calendar reminders break when people change roles. A missed monitoring date becomes a violation you find out about later.",
+      title: "Monitoring dates slip on busy shop floors",
+      body: "Stack testing, continuous monitoring, and fuel or production logs are easy to defer. Missed cycles are a common reason SPCB and CPCB teams escalate scrutiny.",
     },
     {
       icon: FolderCheck,
-      title: "Evidence scattered everywhere",
-      body: "When an inspector asks for proof, the records sit in email threads, shared drives, and someone's desk. Assembling them is its own project.",
+      title: "No single picture of carbon and air risk",
+      body: "Fuel bills, DG run-hours, lab reports, and buyer ESG forms live in different places. When government or a large customer asks, assembling proof becomes a fire drill.",
     },
   ];
 
@@ -79,25 +71,23 @@ export function Problem() {
       <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8">
         <SectionHeading
           eyebrow="The problem"
-          title="Compliance work is manual, and the risk is personal"
-          description="EHS managers carry the consequences of a missed obligation. Most still track them by hand."
+          title="Small plants face big scrutiny on what they emit"
+          description="Carbon and air pollution are on every regulator’s radar. You should not need a ₹15 lakh consultant to know what could bring enforcement to your gate."
         />
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
+        <ScrollRevealStagger className="mt-12 grid gap-5 md:grid-cols-3">
           {pains.map((p) => (
-            <div
+            <ScrollRevealItem
               key={p.title}
-              className="rounded-2xl border border-border bg-surface p-6"
+              className="rounded-2xl border border-border bg-surface p-6 transition-shadow duration-300 hover:shadow-md hover:shadow-primary/5"
             >
               <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-background text-primary">
                 <p.icon className="h-5 w-5" />
               </span>
               <h3 className="mt-5 text-lg font-semibold text-foreground">{p.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {p.body}
-              </p>
-            </div>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.body}</p>
+            </ScrollRevealItem>
           ))}
-        </div>
+        </ScrollRevealStagger>
       </div>
     </section>
   );
@@ -108,20 +98,20 @@ export function HowItWorks() {
     {
       icon: ScanLine,
       step: "01",
-      title: "Upload your documents",
-      body: "Drop in permits, consent orders, regulations, and past reports. SysComp handles scanned pages and long appendices.",
+      title: "Upload air & energy documents",
+      body: "Share your CTO, stack monitoring reports, fuel and electricity records, and any SPCB or CPCB notices — digital or scanned.",
     },
     {
       icon: ClipboardList,
       step: "02",
-      title: "Get a clear obligation list",
-      body: "Each requirement becomes a tracked obligation with the source paragraph attached, plus frequency, due date, and suggested owner.",
+      title: "Map limits, tests, and carbon drivers",
+      body: "Each emission clause, monitoring frequency, and key fuel or process source becomes a tracked obligation with the source text attached.",
     },
     {
       icon: BellRing,
       step: "03",
-      title: "Stay ahead of every date",
-      body: "Your team gets reminders before work is due, records proof as it happens, and exports an audit-ready file whenever it is asked for.",
+      title: "Act before scrutiny turns into penalties",
+      body: "Reminders before tests and filings, a place to log readings and fuel data, and exportable packs when inspectors or buyers ask.",
     },
   ];
 
@@ -133,14 +123,14 @@ export function HowItWorks() {
             <SectionHeading
               center={false}
               eyebrow="How it works"
-              title="From a stack of permits to a working plan"
-              description="Three steps. Most teams see their first obligation register the same week they start."
+              title="From stack consent to emissions you can defend"
+              description="Three steps — for MSMEs with boilers, furnaces, DG sets, or processes that put them on an SPCB air consent."
             />
-            <ol className="mt-10 space-y-5">
+            <ScrollRevealStagger className="mt-10 space-y-5" stagger={0.1}>
               {steps.map((s) => (
-                <li
+                <ScrollRevealItem
                   key={s.step}
-                  className="flex gap-4 rounded-2xl border border-border bg-background p-5"
+                  className="flex gap-4 rounded-2xl border border-border bg-background p-5 transition-shadow duration-300 hover:shadow-md hover:shadow-primary/5"
                 >
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary-soft text-primary">
                     <s.icon className="h-5 w-5" />
@@ -149,22 +139,18 @@ export function HowItWorks() {
                     <p className="text-xs font-semibold tracking-widest text-muted-foreground">
                       STEP {s.step}
                     </p>
-                    <h3 className="mt-1 text-lg font-semibold text-foreground">
-                      {s.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                      {s.body}
-                    </p>
+                    <h3 className="mt-1 text-lg font-semibold text-foreground">{s.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
                   </div>
-                </li>
+                </ScrollRevealItem>
               ))}
-            </ol>
+            </ScrollRevealStagger>
           </div>
 
           <div className="rounded-2xl border border-border bg-background p-2">
             <img
               src={permit}
-              alt="An environmental air permit next to a laptop showing extracted compliance tasks"
+              alt="Air consent documents next to a laptop showing emission limits and monitoring tasks"
               loading="lazy"
               width={1408}
               height={1008}
@@ -172,8 +158,8 @@ export function HowItWorks() {
             />
             <div className="p-5">
               <p className="text-sm leading-relaxed text-muted-foreground">
-                Every obligation links back to the exact clause it came from, so your team
-                can check the wording without opening the original file.
+                Every obligation links back to the exact clause it came from, so your team can check
+                the wording without opening the original file.
               </p>
             </div>
           </div>
@@ -186,34 +172,34 @@ export function HowItWorks() {
 export function Features() {
   const features = [
     {
-      icon: FileStack,
-      title: "Document processing",
-      body: "Permits, regulations, and reports are read and structured automatically, including scanned copies.",
+      icon: Wind,
+      title: "Stack & air consent mapping",
+      body: "Turn CTO clauses into tasks for emission limits, control equipment, and parameters your board cares about.",
     },
     {
-      icon: ClipboardList,
-      title: "Obligation register",
-      body: "One live list of what is required, where it applies, how often, and who is responsible.",
+      icon: Flame,
+      title: "Carbon & fuel visibility",
+      body: "Track fuels, DG hours, and energy use alongside air duties so carbon questions do not surprise you later.",
     },
     {
       icon: BellRing,
-      title: "Deadline reminders",
-      body: "Notifications ahead of monitoring, sampling, reporting, and renewal dates.",
+      title: "Monitoring calendar",
+      body: "Alerts before stack tests, CEMS checks, and periodic reports tied to your consent.",
     },
     {
       icon: FolderCheck,
-      title: "Evidence trail",
-      body: "Attach records, readings, and sign-offs to each task as the work is completed.",
+      title: "Lab & reading archive",
+      body: "Attach stack reports, calibration records, and exceedance follow-ups to the obligation they satisfy.",
     },
     {
       icon: Gauge,
-      title: "Site and program views",
-      body: "See status for one facility or the whole portfolio without rebuilding a spreadsheet.",
+      title: "Plant & multi-site view",
+      body: "See which stacks or units are green, due soon, or at risk — without rebuilding spreadsheets.",
     },
     {
       icon: Share2,
-      title: "Reports and exports",
-      body: "Produce inspection packs and management summaries in a few clicks.",
+      title: "Inspection & buyer packs",
+      body: "Export evidence for SPCB visits, NCAP-related asks, or customer carbon and ESG questionnaires.",
     },
   ];
 
@@ -222,25 +208,23 @@ export function Features() {
       <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8">
         <SectionHeading
           eyebrow="Platform"
-          title="Everything your compliance program needs in one place"
-          description="Built around how EHS work actually happens, from permit renewal to inspection day."
+          title="Built around what regulators measure in the air"
+          description="Grounded in India’s Air Act, CPCB emission standards, and SPCB consent practice — focused on carbon drivers and air pollutants, not US federal law."
         />
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ScrollRevealStagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((f) => (
-            <div
+            <ScrollRevealItem
               key={f.title}
-              className="rounded-2xl border border-border bg-surface p-6 transition-colors hover:border-primary"
+              className="rounded-2xl border border-border bg-surface p-6 transition-all duration-300 hover:border-primary hover:shadow-md hover:shadow-primary/5"
             >
               <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-background text-primary">
                 <f.icon className="h-5 w-5" />
               </span>
               <h3 className="mt-5 text-base font-semibold text-foreground">{f.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {f.body}
-              </p>
-            </div>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
+            </ScrollRevealItem>
           ))}
-        </div>
+        </ScrollRevealStagger>
       </div>
     </section>
   );
@@ -248,12 +232,12 @@ export function Features() {
 
 export function WhoItsFor() {
   const roles = [
-    { icon: Users, label: "EHS and compliance managers" },
-    { icon: Factory, label: "Manufacturing and processing plants" },
-    { icon: Building2, label: "Multi-site operations teams" },
-    { icon: Wind, label: "Air permit holders" },
-    { icon: Droplets, label: "Water and wastewater programs" },
-    { icon: Recycle, label: "Waste and materials handling" },
+    { icon: Users, label: "Plant heads answering to the board" },
+    { icon: Factory, label: "Foundries, metals & auto components" },
+    { icon: Building2, label: "Units in notified industrial areas" },
+    { icon: Wind, label: "Stacks with PM, SO₂, NOx limits" },
+    { icon: Flame, label: "Boilers, furnaces & DG sets" },
+    { icon: Gauge, label: "Teams asked for carbon / ESG data" },
   ];
 
   return (
@@ -274,20 +258,20 @@ export function WhoItsFor() {
             <SectionHeading
               center={false}
               eyebrow="Who it's for"
-              title="For the teams that answer to the regulator"
-              description="SysComp fits sites with real permits, real deadlines, and small teams holding it all together."
+              title="For plants where emissions draw government attention"
+              description="GreenUdyog fits Udyam MSMEs with air consent, periodic stack testing, and rising pressure on carbon and pollution — without a full EHS desk."
             />
-            <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+            <ScrollRevealStagger className="mt-8 grid gap-3 sm:grid-cols-2" stagger={0.06}>
               {roles.map((r) => (
-                <li
+                <ScrollRevealItem
                   key={r.label}
-                  className="flex items-center gap-3 rounded-xl border border-border bg-background px-4 py-3"
+                  className="flex items-center gap-3 rounded-xl border border-border bg-background px-4 py-3 transition-colors hover:border-primary/40"
                 >
                   <r.icon className="h-4 w-4 shrink-0 text-primary" />
                   <span className="text-sm text-foreground">{r.label}</span>
-                </li>
+                </ScrollRevealItem>
               ))}
-            </ul>
+            </ScrollRevealStagger>
           </div>
         </div>
       </div>
@@ -320,21 +304,22 @@ export function Trust() {
         <SectionHeading
           eyebrow="Security"
           title="Built for records you cannot afford to lose"
-          description="Compliance data is sensitive. SysComp treats it that way."
+          description="Stack reports, fuel data, and consent files stay confidential. GreenUdyog treats them that way."
         />
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
+        <ScrollRevealStagger className="mt-12 grid gap-5 md:grid-cols-3">
           {items.map((i) => (
-            <div key={i.title} className="rounded-2xl border border-border bg-surface p-6">
+            <ScrollRevealItem
+              key={i.title}
+              className="rounded-2xl border border-border bg-surface p-6 transition-shadow duration-300 hover:shadow-md hover:shadow-primary/5"
+            >
               <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-background text-primary">
                 <i.icon className="h-5 w-5" />
               </span>
               <h3 className="mt-5 text-base font-semibold text-foreground">{i.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {i.body}
-              </p>
-            </div>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{i.body}</p>
+            </ScrollRevealItem>
           ))}
-        </div>
+        </ScrollRevealStagger>
       </div>
     </section>
   );
@@ -343,28 +328,44 @@ export function Trust() {
 export function Faq() {
   const faqs = [
     {
-      q: "What documents can SysComp read?",
-      a: "Air, water, and waste permits, consent orders, regulatory text, monitoring plans, and previous compliance reports. Scanned and digital files both work.",
+      q: "We are a small unit — can the government still scrutinise our emissions?",
+      a: "Yes. If you have an air consent (CTE/CTO), use boilers, furnaces, or DG sets, or fall in a polluted industrial cluster, SPCB and CPCB can ask for stack data, monitoring reports, and proof you are within limits. Size does not remove scrutiny — weak records do increase it. On a free call we help you see your exposure.",
     },
     {
-      q: "Do I have to trust the extraction blindly?",
-      a: "No. Every obligation shows the source document and the paragraph it came from, and your team can edit, merge, or reject anything before it goes live.",
+      q: "What air pollutants usually trigger action in India?",
+      a: "Common focus areas are particulate matter (PM), sulphur dioxide (SO₂), nitrogen oxides (NOx), and sometimes VOCs or industry-specific parameters — all often capped in your consent in mg/Nm³. Exceedances, missing tests, or visible fugitive dust can lead to notices, directions, or closure threats depending on your state board.",
     },
     {
-      q: "How long does setup take?",
-      a: "Upload your permits and you can review a draft obligation register in days, not months. There is no data migration project to run first.",
+      q: "Do MSMEs need to worry about carbon emissions?",
+      a: "Routine SPCB consent is still about permitted air pollutants, but carbon shows up through fuel use, electricity, and buyer supply-chain questionnaires. Large OEMs and export customers increasingly ask MSME suppliers for energy and emissions information even when full carbon accounting is not yet mandatory for you.",
     },
     {
-      q: "Can we manage more than one site?",
-      a: "Yes. Obligations are tagged by site and permit, so you can work facility by facility or review the whole program in one view.",
+      q: "What happens if we exceed a stack limit on a lab report?",
+      a: "You may need to inform the board, explain the cause, show corrective action, and re-test. Repeat or serious exceedances raise enforcement risk. We help you tie each limit in your CTO to a monitoring plan and a paper trail if something goes wrong.",
     },
     {
-      q: "Does it replace our existing EHS system?",
-      a: "It can, but it does not have to. Many teams use SysComp for permits and obligations and keep their other systems for incidents and training.",
+      q: "How often must we test stack emissions?",
+      a: "Frequency is in your consent and CPCB/SPCB sector guidelines — monthly, quarterly, six-monthly, or annual depending on industry and parameter. Missing a cycle is one of the most common findings in inspections. We convert those lines into a calendar your team can run.",
     },
     {
-      q: "What happens when a permit is renewed?",
-      a: "Upload the new version and SysComp flags what changed, so you only review the differences instead of rereading the whole document.",
+      q: "Our DG set runs only during power cuts — does it still count?",
+      a: "Often yes for consent and fuel records if it is listed as a source or uses diesel above thresholds your state cares about. Boards may ask for stack or noise data and fuel logs. We clarify what your consent and local rules expect for backup generators.",
+    },
+    {
+      q: "What is NCAP and does it affect our factory?",
+      a: "The National Clean Air Programme pushes states to improve air quality in non-attainment and nearby industrial areas. That can mean tighter local action, more monitoring, and attention to MSME stacks in hotspot cities. If you operate in or supply plants in those regions, scrutiny can intensify even without a change in your CTO.",
+    },
+    {
+      q: "A buyer sent a carbon or ESG form — can you help?",
+      a: "Yes. Many MSMEs must report fuel, electricity, and basic emissions-related data to customers without a sustainability team. We help you map consent limits, monitoring results, and energy records into answers you can stand behind.",
+    },
+    {
+      q: "Is the online consultation free? What should we bring?",
+      a: "Yes — 30 minutes at no cost. Bring your latest air CTO (if any), recent stack or ambient reports, rough fuel and DG usage, and your state and district. PDFs or photos are enough for a first conversation.",
+    },
+    {
+      q: "Are you the pollution board or a law firm?",
+      a: "Neither. GreenUdyog is affordable emissions and compliance support for MSMEs — not SPCB/CPCB and not legal counsel. For court cases, contested shutdown orders, or formal submissions you may still need a qualified consultant or advocate in your state.",
     },
   ];
 
@@ -373,8 +374,8 @@ export function Faq() {
       <div className="mx-auto max-w-3xl px-5 py-20 sm:px-8">
         <SectionHeading
           eyebrow="FAQ"
-          title="Questions we hear from EHS teams"
-          description="If something is not covered here, ask us on the demo call."
+          title="Questions MSME owners ask about emissions"
+          description="Straight answers on stack limits, carbon pressure, and government scrutiny — book a free call if yours is not listed."
         />
         <Accordion type="single" collapsible className="mt-10">
           {faqs.map((f) => (
@@ -393,143 +394,46 @@ export function Faq() {
   );
 }
 
-export function FinalCta() {
-  const [email, setEmail] = useState("");
-  const [company, setCompany] = useState("");
-  const [phone, setPhone] = useState("");
-  const [busy, setBusy] = useState(false);
-  const [done, setDone] = useState(false);
-  const [flash, setFlash] = useState(false);
-
-  // Every "Book a demo" link smoothly scrolls here, highlights the form and focuses the email field.
-  useEffect(() => {
-    function onClick(e: MouseEvent) {
-      const link = (e.target as HTMLElement | null)?.closest('a[href="#demo"]');
-      if (!link) return;
-      e.preventDefault();
-      document.getElementById("demo")?.scrollIntoView({ behavior: "smooth", block: "start" });
-      history.replaceState(null, "", "#demo");
-      setFlash(true);
-      window.setTimeout(() => {
-        (document.getElementById("work-email") as HTMLInputElement | null)?.focus({ preventScroll: true });
-      }, 600);
-      window.setTimeout(() => setFlash(false), 1600);
-    }
-    document.addEventListener("click", onClick);
-    return () => document.removeEventListener("click", onClick);
-  }, []);
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (busy) return;
-    setBusy(true);
-    try {
-      const { error } = await supabase.from("demo_requests").insert({
-        email: email.trim(),
-        company: company.trim(),
-        phone: phone.trim(),
-        source: "landing_page",
-      });
-      if (error) throw error;
-      setDone(true);
-      setEmail("");
-      setCompany("");
-      setPhone("");
-      toast.success("Request received. Our team will reach out within one business day.");
-    } catch {
-      toast.error("We couldn't send that. Please try again in a moment.");
-    } finally {
-      setBusy(false);
-    }
-  }
+export function SocialProof() {
+  const quotes = [
+    {
+      quote:
+        "After a stack exceedance notice, we finally had one place for limits, lab reports, and follow-up tasks.",
+      role: "Plant Head, foundry MSME, Maharashtra",
+    },
+    {
+      quote:
+        "Our OEM asked for energy and emissions data we had never tracked. GreenUdyog helped us start without a big consultancy.",
+      role: "Operations lead, auto components, Chennai",
+    },
+    {
+      quote:
+        "Stack monitoring dates used to live in someone's diary. Now the whole team sees what SPCB expects.",
+      role: "Proprietor, metal fabrication, Gujarat",
+    },
+  ];
 
   return (
-    <section
-      id="demo"
-      className={`scroll-mt-16 bg-deep-gradient transition-shadow duration-500 ${
-        flash ? "shadow-[inset_0_0_0_4px_var(--color-accent)]" : ""
-      }`}
-    >
-      <div className="mx-auto max-w-4xl px-5 py-20 text-center sm:px-8">
-        <h2 className="text-3xl font-semibold text-primary-foreground sm:text-4xl">
-          See your own permit turned into a plan
-        </h2>
-        <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-primary-foreground/80 sm:text-lg">
-          Book a 30 minute demo. Bring one permit and we will show you the obligations
-          SysComp pulls out of it.
-        </p>
-
-        {done ? (
-          <div className="mx-auto mt-8 max-w-lg rounded-xl bg-background/10 p-6">
-            <p className="text-base font-medium text-primary-foreground">
-              Thanks — your request is in.
-            </p>
-            <p className="mt-2 text-sm text-primary-foreground/80">
-              Someone from our team will email you within one business day.
-            </p>
-            <button
-              type="button"
-              onClick={() => setDone(false)}
-              className="mt-4 text-xs text-primary-foreground/70 underline"
+    <section className="border-b border-border bg-background">
+      <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8">
+        <SectionHeading
+          eyebrow="Trusted by MSME teams"
+          title="Built for plants under the emissions microscope"
+          description="Stories from Indian MSMEs getting ahead of air-pollution and carbon questions."
+        />
+        <ScrollRevealStagger className="mt-12 grid gap-5 md:grid-cols-3">
+          {quotes.map((q) => (
+            <ScrollRevealItem
+              key={q.role}
+              className="rounded-2xl border border-border bg-surface p-6 transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/10"
             >
-              Send another request
-            </button>
-          </div>
-        ) : (
-          <form
-            className="mx-auto mt-8 flex max-w-xl flex-col gap-3 sm:flex-row"
-            onSubmit={handleSubmit}
-          >
-            <label htmlFor="work-email" className="sr-only">
-              Work email
-            </label>
-            <Input
-              id="work-email"
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@company.com"
-              className="h-12 border-transparent bg-background text-base"
-            />
-            <label htmlFor="company" className="sr-only">
-              Company or facility
-            </label>
-            <Input
-              id="company"
-              type="text"
-              required
-              value={company}
-              onChange={(e) => setCompany(e.target.value)}
-              placeholder="Company name"
-              className="h-12 border-transparent bg-background text-base"
-            />
-            <label htmlFor="phone" className="sr-only">
-              Phone number
-            </label>
-            <Input
-              id="phone"
-              type="tel"
-              required
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="Phone number"
-              className="h-12 border-transparent bg-background text-base"
-            />
-            <Button
-              type="submit"
-              size="lg"
-              disabled={busy}
-              className="h-12 shrink-0 bg-background px-6 text-base text-primary hover:bg-background/90"
-            >
-              {busy ? "Sending…" : "Book a demo"}
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </form>
-        )}
-        <p className="mt-4 text-xs text-primary-foreground/70">
-          No commitment. We will answer within one business day.
-        </p>
+              <blockquote>
+                <p className="text-sm leading-relaxed text-foreground">&ldquo;{q.quote}&rdquo;</p>
+                <footer className="mt-4 text-xs text-muted-foreground">{q.role}</footer>
+              </blockquote>
+            </ScrollRevealItem>
+          ))}
+        </ScrollRevealStagger>
       </div>
     </section>
   );

@@ -143,12 +143,12 @@
   }
 }
 
-/* SysComp brand tokens */
+/* GreenUdyog brand tokens */
 :root {
-  --primary: oklch(0.42 0.082 162);
-  --primary-foreground: oklch(0.985 0.005 160);
-  --primary-soft: oklch(0.95 0.028 162);
-  --primary-deep: oklch(0.29 0.06 163);
+  --primary: oklch(0.45 0.12 158);
+  --primary-foreground: oklch(0.99 0.01 155);
+  --primary-soft: oklch(0.96 0.04 155);
+  --primary-deep: oklch(0.28 0.07 160);
   --accent: oklch(0.96 0.025 162);
   --accent-foreground: oklch(0.32 0.065 163);
   --background: oklch(1 0 0);
@@ -159,10 +159,10 @@
   --input: oklch(0.905 0.008 160);
   --ring: oklch(0.42 0.082 162);
   --surface: oklch(0.985 0.006 160);
-  --brand-gradient: linear-gradient(135deg, oklch(0.46 0.105 158), oklch(0.34 0.085 171));
-  --brand-gradient-hover: linear-gradient(135deg, oklch(0.42 0.105 158), oklch(0.3 0.085 171));
-  --surface-gradient: linear-gradient(145deg, oklch(0.985 0.012 155), oklch(0.955 0.035 170));
-  --deep-gradient: linear-gradient(135deg, oklch(0.27 0.065 163), oklch(0.38 0.09 174));
+  --brand-gradient: linear-gradient(135deg, oklch(0.42 0.11 158), oklch(0.55 0.14 165));
+  --brand-gradient-hover: linear-gradient(135deg, oklch(0.38 0.11 158), oklch(0.48 0.12 168));
+  --surface-gradient: linear-gradient(160deg, oklch(0.99 0.015 150), oklch(0.94 0.045 165));
+  --deep-gradient: linear-gradient(145deg, oklch(0.22 0.06 160), oklch(0.38 0.1 168));
   --radius: 0.75rem;
 }
 
@@ -178,7 +178,10 @@
   body {
     font-family: var(--font-sans);
   }
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
     letter-spacing: 0;
   }
@@ -187,7 +190,9 @@
 @utility scroll-reveal {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 650ms ease, transform 650ms ease;
+  transition:
+    opacity 650ms ease,
+    transform 650ms ease;
 }
 
 @utility scroll-reveal-visible {

@@ -1,32 +1,27 @@
-import { Leaf } from "lucide-react";
+import { GreenUdyogLogo } from "@/components/landing/GreenUdyogLogo";
 
 const groups = [
   {
     title: "Platform",
     links: [
       { label: "How it works", href: "#how-it-works" },
-      { label: "Obligation register", href: "#features" },
-      { label: "Reporting", href: "#features" },
+      { label: "Features", href: "#features" },
       { label: "Security", href: "#trust" },
-    ],
-  },
-  {
-    title: "Use cases",
-    links: [
-      { label: "Air permits", href: "#who" },
-      { label: "Water and wastewater", href: "#who" },
-      { label: "Waste management", href: "#who" },
-      { label: "Multi-site programs", href: "#who" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { label: "Book a demo", href: "#demo" },
-      { label: "Contact sales", href: "#demo" },
       { label: "FAQ", href: "#faq" },
-      { label: "Team sign in", href: "/auth" },
     ],
+  },
+  {
+    title: "Emissions focus",
+    links: [
+      { label: "Stack & air consent", href: "#who" },
+      { label: "Carbon & fuel records", href: "#who" },
+      { label: "Monitoring & testing", href: "#features" },
+      { label: "Regulator readiness", href: "#trust" },
+    ],
+  },
+  {
+    title: "Get started",
+    links: [{ label: "Free consultation", href: "#demo" }],
   },
 ];
 
@@ -36,17 +31,10 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                <Leaf className="h-5 w-5" />
-              </span>
-              <span className="font-display text-lg font-semibold text-foreground">
-                SysComp
-              </span>
-            </div>
+            <GreenUdyogLogo className="h-10 w-10" showWordmark />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Compliance software for EHS teams. Permits in, obligations out, evidence
-              ready.
+              Affordable online support for Indian MSMEs on carbon, stack emissions, and related air
+              pollutants — so government scrutiny does not catch you unprepared.
             </p>
           </div>
 
@@ -58,7 +46,7 @@ export function Footer() {
                   <li key={l.label}>
                     <a
                       href={l.href}
-                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                      className="text-sm text-muted-foreground transition-colors hover:text-primary"
                     >
                       {l.label}
                     </a>
@@ -71,16 +59,9 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col gap-3 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} SysComp. All rights reserved.
+            © {new Date().getFullYear()} GreenUdyog. Information is not legal advice.
           </p>
-          <div className="flex gap-6">
-            <a href="#demo" className="text-xs text-muted-foreground hover:text-foreground">
-              Privacy
-            </a>
-            <a href="#demo" className="text-xs text-muted-foreground hover:text-foreground">
-              Terms
-            </a>
-          </div>
+          <p className="text-xs text-muted-foreground">Made for India · Times in IST</p>
         </div>
       </div>
     </footer>

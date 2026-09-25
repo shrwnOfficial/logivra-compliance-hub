@@ -78,11 +78,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "SysComp — Automated environmental and EHS compliance" },
-      { name: "description", content: "Compliance software for EHS teams: permits in, trackable obligations out." },
-      { name: "author", content: "SysComp" },
-      { property: "og:title", content: "SysComp" },
-      { property: "og:description", content: "Compliance software for EHS teams." },
+      { title: "GreenUdyog — Emissions clarity for small manufacturers" },
+      {
+        name: "description",
+        content:
+          "Carbon and air-pollution support for Indian MSMEs. Stack limits, monitoring, and SPCB/CPCB obligations — book a free consultation.",
+      },
+      { name: "author", content: "GreenUdyog" },
+      { property: "og:title", content: "GreenUdyog" },
+      {
+        property: "og:description",
+        content:
+          "Emissions clarity for small manufacturers — carbon, stack air pollutants, and regulator-ready records.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
@@ -92,7 +100,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/greenudyog-icon.svg", type: "image/svg+xml" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
