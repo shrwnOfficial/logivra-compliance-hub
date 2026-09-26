@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 import dashboard from "@/assets/dashboard.jpg";
 
 const proof = [
-  { icon: FileSearch, text: "Stack limits & emission clauses mapped" },
-  { icon: CalendarCheck, text: "Free call on carbon & air scrutiny" },
-  { icon: ShieldCheck, text: "Proof ready for SPCB / CPCB checks" },
+  { icon: FileSearch, text: "Mapped from your consents & permits" },
+  { icon: CalendarCheck, text: "Free document review call" },
+  { icon: ShieldCheck, text: "Structured plan you can track" },
 ];
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -27,22 +27,19 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, ease }}
           >
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary-soft px-3 py-1 text-xs font-medium text-primary-deep">
-              GreenUdyog — Emissions clarity for small manufacturers
-            </span>
-            <h1 className="mt-5 text-4xl font-semibold leading-[1.08] text-foreground sm:text-5xl lg:text-6xl">
-              Stay ahead of carbon and air-pollution scrutiny.
+            <h1 className="text-4xl font-semibold leading-[1.08] text-foreground sm:text-5xl lg:text-6xl">
+              Environmental &amp; safety compliance, mapped from your own paperwork.
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              Indian MSMEs face tighter watch on stack emissions, fuel use, and pollutants like PM,
-              SO₂, NOx, and VOCs — plus growing pressure on carbon and energy data. Turn your CTO
-              and monitoring duties into a clear plan without a full-time consultant.
+              Understand your permit requirements before regulatory action becomes necessary. Submit
+              your documentation and receive a clear, structured, trackable compliance plan tailored
+              to your plant — built for Indian small and medium manufacturers.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Button asChild size="cta" className="shadow-md">
                 <a href="#demo">
-                  Book a free online call
+                  Book my review
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>
@@ -75,7 +72,7 @@ export function Hero() {
           >
             <img
               src={dashboard}
-              alt="GreenUdyog dashboard showing emission limits, monitoring dates, and compliance tasks"
+              alt="Sankalp dashboard showing compliance obligations and deadlines"
               width={1600}
               height={1104}
               className="w-full rounded-xl border border-border"

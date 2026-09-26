@@ -14,9 +14,9 @@ import { BookFreeCall } from "@/components/landing/BookFreeCall";
 import { Footer } from "@/components/landing/Footer";
 import { ScrollReveal } from "@/components/landing/ScrollReveal";
 
-const title = "GreenUdyog — Emissions clarity for small manufacturers";
+const title = "Sankalp — Compliance mapped from your paperwork";
 const description =
-  "Help Indian MSMEs track carbon and air pollution — stack limits, PM and GHG-related duties, and SPCB/CPCB scrutiny — book a free consultation.";
+  "Environmental and safety compliance for Indian small and medium manufacturers. Understand permit requirements before regulatory action — book a free document review.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -46,11 +46,11 @@ function Index() {
         <ScrollReveal delay={0.05}>
           <HowItWorks />
         </ScrollReveal>
-        <ScrollReveal scale delay={0.05}>
-          <Features />
-        </ScrollReveal>
         <ScrollReveal>
           <WhoItsFor />
+        </ScrollReveal>
+        <ScrollReveal scale delay={0.05}>
+          <Features />
         </ScrollReveal>
         <ScrollReveal scale>
           <SocialProof />

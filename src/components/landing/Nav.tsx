@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { GreenUdyogLogo } from "@/components/landing/GreenUdyogLogo";
+import { SankalpLogo } from "@/components/landing/SankalpLogo";
 
 const links = [
   { href: "#how-it-works", label: "How it works" },
   { href: "#features", label: "Platform" },
   { href: "#who", label: "Who it's for" },
-  { href: "#faq", label: "FAQ" },
+  { href: "#faq", label: "Common questions" },
 ];
 
 export function Nav() {
@@ -17,7 +17,7 @@ export function Nav() {
     <header className="sticky top-0 z-50 border-b border-border/80 bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
         <a href="#top" className="flex items-center">
-          <GreenUdyogLogo className="h-10 w-10" showWordmark />
+          <SankalpLogo className="h-10 w-10" showWordmark />
         </a>
 
         <nav className="hidden items-center gap-7 md:flex">
@@ -34,7 +34,7 @@ export function Nav() {
 
         <div className="hidden md:block">
           <Button asChild size="cta" className="shadow-sm">
-            <a href="#demo">Free consultation</a>
+            <a href="#demo">Book my review</a>
           </Button>
         </div>
 
@@ -63,7 +63,7 @@ export function Nav() {
             ))}
             <Button asChild size="cta" className="my-4">
               <a href="#demo" onClick={() => setOpen(false)}>
-                Free consultation
+                Book my review
               </a>
             </Button>
           </nav>

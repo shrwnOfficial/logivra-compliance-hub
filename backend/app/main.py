@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
 from app.routers import bookings, health
 
-app = FastAPI(title="GreenUdyog API", version="1.0.0")
+app = FastAPI(title="Sankalp API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,

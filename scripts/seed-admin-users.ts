@@ -80,7 +80,7 @@ async function ensureAdminRole(userId: string) {
 }
 
 async function main() {
-  console.log("Seeding GreenUdyog admin users (email confirmed, no verification mail)…\n");
+  console.log("Seeding Sankalp admin users (email confirmed, no verification mail)…\n");
 
   for (const { name, email } of founders) {
     const normalized = email.toLowerCase();

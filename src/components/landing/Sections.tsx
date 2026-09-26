@@ -1,9 +1,7 @@
 import {
   AlarmClock,
   BellRing,
-  Building2,
   ClipboardList,
-  Factory,
   FileStack,
   FolderCheck,
   Gauge,
@@ -12,8 +10,10 @@ import {
   ScanLine,
   ServerCog,
   Share2,
-  Users,
-  Wind,
+  Globe2,
+  AlertTriangle,
+  Briefcase,
+  Scale,
 } from "lucide-react";
 import {
   Accordion,
@@ -51,18 +51,23 @@ export function Problem() {
   const pains = [
     {
       icon: FileStack,
-      title: "Emission limits buried in consent PDFs",
-      body: "Your CTO may list mg/Nm³ caps for PM, SO₂, NOx, or other parameters across dozens of pages. MSME teams often discover a limit only after a test fails or a notice arrives.",
+      title: "Your obligations are buried in paperwork, not tracked anywhere",
+      body: "Consents, licenses, and authorizations list limits, conditions, and renewal dates across dozens of pages. Most small and medium enterprise teams only discover one after a report fails or a notice arrives.",
     },
     {
       icon: AlarmClock,
-      title: "Monitoring dates slip on busy shop floors",
-      body: "Stack testing, continuous monitoring, and fuel or production logs are easy to defer. Missed cycles are a common reason SPCB and CPCB teams escalate scrutiny.",
+      title: "Compliance dates slip on busy shop floors",
+      body: "Testing, monitoring, inspections, and renewals are easy to defer when production takes priority. Missed cycles are one of the most common reasons regulators escalate scrutiny.",
     },
     {
       icon: FolderCheck,
-      title: "No single picture of carbon and air risk",
-      body: "Fuel bills, DG run-hours, lab reports, and buyer ESG forms live in different places. When government or a large customer asks, assembling proof becomes a fire drill.",
+      title: "No single picture of where you stand",
+      body: "Permits, monitoring logs, lab reports, and buyer questionnaires all live in different places. When a regulator or customer asks for proof, pulling it together becomes a fire drill.",
+    },
+    {
+      icon: Scale,
+      title: "Non-compliance carries real consequences",
+      body: "Missed or breached conditions can mean penalties, show-cause notices, or escalation toward closure — most of it avoidable with a system that tracks what you are already obligated to do.",
     },
   ];
 
@@ -71,10 +76,10 @@ export function Problem() {
       <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8">
         <SectionHeading
           eyebrow="The problem"
-          title="Small plants face big scrutiny on what they emit"
-          description="Carbon and air pollution are on every regulator’s radar. You should not need a ₹15 lakh consultant to know what could bring enforcement to your gate."
+          title="Small plants face the same scrutiny as large ones"
+          description="Regulators do not distinguish by size when it comes to compliance — environmental, safety, or labour. You should not need a ₹15 lakh consultant to know what could bring enforcement to your gate."
         />
-        <ScrollRevealStagger className="mt-12 grid gap-5 md:grid-cols-3">
+        <ScrollRevealStagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {pains.map((p) => (
             <ScrollRevealItem
               key={p.title}
@@ -98,20 +103,20 @@ export function HowItWorks() {
     {
       icon: ScanLine,
       step: "01",
-      title: "Upload air & energy documents",
-      body: "Share your CTO, stack monitoring reports, fuel and electricity records, and any SPCB or CPCB notices — digital or scanned.",
+      title: "Submit your documentation",
+      body: "Share consents, licenses, safety records, and past regulator correspondence — digital or scanned.",
     },
     {
       icon: ClipboardList,
       step: "02",
-      title: "Map limits, tests, and carbon drivers",
-      body: "Each emission clause, monitoring frequency, and key fuel or process source becomes a tracked obligation with the source text attached.",
+      title: "Get a structured obligation list",
+      body: "Each requirement becomes a tracked task with the source paragraph attached, plus frequency, due date, and suggested owner.",
     },
     {
       icon: BellRing,
       step: "03",
-      title: "Act before scrutiny turns into penalties",
-      body: "Reminders before tests and filings, a place to log readings and fuel data, and exportable packs when inspectors or buyers ask.",
+      title: "Stay ahead of every date",
+      body: "Reminders before work is due, proof logged as it happens, and exportable packs when inspectors or buyers ask.",
     },
   ];
 
@@ -123,8 +128,8 @@ export function HowItWorks() {
             <SectionHeading
               center={false}
               eyebrow="How it works"
-              title="From stack consent to emissions you can defend"
-              description="Three steps — for MSMEs with boilers, furnaces, DG sets, or processes that put them on an SPCB air consent."
+              title="From your paperwork to a compliance plan you can run"
+              description="Three steps — for Udyam-registered small and medium manufacturers managing environmental, safety, and labour duties without a full-time compliance desk."
             />
             <ScrollRevealStagger className="mt-10 space-y-5" stagger={0.1}>
               {steps.map((s) => (
@@ -150,7 +155,7 @@ export function HowItWorks() {
           <div className="rounded-2xl border border-border bg-background p-2">
             <img
               src={permit}
-              alt="Air consent documents next to a laptop showing emission limits and monitoring tasks"
+              alt="Permit documents next to a laptop showing compliance tasks and deadlines"
               loading="lazy"
               width={1408}
               height={1008}
@@ -172,34 +177,34 @@ export function HowItWorks() {
 export function Features() {
   const features = [
     {
-      icon: Wind,
-      title: "Stack & air consent mapping",
-      body: "Turn CTO clauses into tasks for emission limits, control equipment, and parameters your board cares about.",
+      icon: FileStack,
+      title: "Consent & permit mapping",
+      body: "Turn Consent to Establish and Consent to Operate conditions, water pollution consents, and hazardous waste authorizations into tasks for limits, control equipment, and parameters your board cares about.",
     },
     {
       icon: Flame,
       title: "Carbon & fuel visibility",
-      body: "Track fuels, DG hours, and energy use alongside air duties so carbon questions do not surprise you later.",
+      body: "Track fuel use, diesel generator run-hours, and electricity alongside your environmental duties, so carbon and buyer sustainability questionnaires do not surprise you later.",
     },
     {
       icon: BellRing,
       title: "Monitoring calendar",
-      body: "Alerts before stack tests, CEMS checks, and periodic reports tied to your consent.",
+      body: "Alerts before tests, inspections, and periodic filings tied to every consent and license you hold.",
     },
     {
       icon: FolderCheck,
-      title: "Lab & reading archive",
-      body: "Attach stack reports, calibration records, and exceedance follow-ups to the obligation they satisfy.",
+      title: "Laboratory report archive",
+      body: "Attach stack reports, effluent tests, calibration records, and exceedance follow-ups to the obligation they satisfy.",
     },
     {
       icon: Gauge,
       title: "Plant & multi-site view",
-      body: "See which stacks or units are green, due soon, or at risk — without rebuilding spreadsheets.",
+      body: "See which sites or units are green, due soon, or at risk — without rebuilding spreadsheets.",
     },
     {
       icon: Share2,
       title: "Inspection & buyer packs",
-      body: "Export evidence for SPCB visits, NCAP-related asks, or customer carbon and ESG questionnaires.",
+      body: "Export evidence for State Pollution Control Board or factory inspector visits, or customer carbon and sustainability questionnaires.",
     },
   ];
 
@@ -208,8 +213,8 @@ export function Features() {
       <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8">
         <SectionHeading
           eyebrow="Platform"
-          title="Built around what regulators measure in the air"
-          description="Grounded in India’s Air Act, CPCB emission standards, and SPCB consent practice — focused on carbon drivers and air pollutants, not US federal law."
+          title="Built around what your permits actually require"
+          description="Grounded in Indian environmental, safety, and labour law — covering air, water, waste, and growing buyer expectations on carbon and sustainability data, not just one regulation."
         />
         <ScrollRevealStagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((f) => (
@@ -230,49 +235,75 @@ export function Features() {
   );
 }
 
+const ALSO_FIT_PILLS = [
+  "Hold air, water, or hazardous waste pollution consent",
+  "Run boilers, furnaces, diesel generators, or an effluent treatment plant",
+  "Have no dedicated environment, health and safety team",
+];
+
 export function WhoItsFor() {
-  const roles = [
-    { icon: Users, label: "Plant heads answering to the board" },
-    { icon: Factory, label: "Foundries, metals & auto components" },
-    { icon: Building2, label: "Units in notified industrial areas" },
-    { icon: Wind, label: "Stacks with PM, SO₂, NOx limits" },
-    { icon: Flame, label: "Boilers, furnaces & DG sets" },
-    { icon: Gauge, label: "Teams asked for carbon / ESG data" },
+  const segments = [
+    {
+      icon: Globe2,
+      label: "Buyer-driven exporters",
+      line: "Getting carbon or sustainability questionnaires from large original equipment manufacturers and export buyers.",
+    },
+    {
+      icon: AlertTriangle,
+      label: "Already-flagged plants",
+      line: "Had a notice, exceedance, or inspection and cannot risk a repeat.",
+    },
+    {
+      icon: Briefcase,
+      label: "Compliance consultants",
+      line: "Managing compliance across multiple client plants.",
+    },
   ];
 
   return (
     <section id="who" className="border-b border-border bg-surface">
       <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          <div className="order-2 overflow-hidden rounded-2xl border border-border lg:order-1">
-            <img
-              src={facility}
-              alt="Clean modern manufacturing facility with stainless steel process equipment"
-              loading="lazy"
-              width={1600}
-              height={1104}
-              className="h-full w-full object-cover"
-            />
-          </div>
-          <div className="order-1 lg:order-2">
-            <SectionHeading
-              center={false}
-              eyebrow="Who it's for"
-              title="For plants where emissions draw government attention"
-              description="GreenUdyog fits Udyam MSMEs with air consent, periodic stack testing, and rising pressure on carbon and pollution — without a full EHS desk."
-            />
-            <ScrollRevealStagger className="mt-8 grid gap-3 sm:grid-cols-2" stagger={0.06}>
-              {roles.map((r) => (
-                <ScrollRevealItem
-                  key={r.label}
-                  className="flex items-center gap-3 rounded-xl border border-border bg-background px-4 py-3 transition-colors hover:border-primary/40"
-                >
-                  <r.icon className="h-4 w-4 shrink-0 text-primary" />
-                  <span className="text-sm text-foreground">{r.label}</span>
-                </ScrollRevealItem>
-              ))}
-            </ScrollRevealStagger>
-          </div>
+        <SectionHeading
+          eyebrow="Who it's for"
+          title="For plants where compliance draws government or buyer attention"
+          description="Sankalp fits manufacturers answering to buyers on sustainability data, recovering from a pollution board notice or inspection, or simply running without a full-time environment and safety desk. If any of this sounds familiar, you are exactly who we built this for."
+        />
+        <ScrollRevealStagger className="mt-12 grid gap-5 md:grid-cols-3">
+          {segments.map((s) => (
+            <ScrollRevealItem
+              key={s.label}
+              className="rounded-2xl border border-border bg-background p-6 transition-all duration-300 hover:border-primary hover:shadow-md hover:shadow-primary/5"
+            >
+              <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-surface text-primary">
+                <s.icon className="h-5 w-5" />
+              </span>
+              <h3 className="mt-5 text-base font-semibold text-foreground">{s.label}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.line}</p>
+            </ScrollRevealItem>
+          ))}
+        </ScrollRevealStagger>
+        <div className="mt-10">
+          <p className="text-center text-sm font-medium text-foreground">Also a fit if you:</p>
+          <ul className="mt-4 flex flex-wrap justify-center gap-2">
+            {ALSO_FIT_PILLS.map((pill) => (
+              <li
+                key={pill}
+                className="rounded-full border border-border bg-background px-3 py-1.5 text-xs text-muted-foreground"
+              >
+                {pill}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="mt-12 overflow-hidden rounded-2xl border border-border">
+          <img
+            src={facility}
+            alt="Modern manufacturing facility"
+            loading="lazy"
+            width={1600}
+            height={1104}
+            className="h-48 w-full object-cover sm:h-64"
+          />
         </div>
       </div>
     </section>
@@ -304,7 +335,7 @@ export function Trust() {
         <SectionHeading
           eyebrow="Security"
           title="Built for records you cannot afford to lose"
-          description="Stack reports, fuel data, and consent files stay confidential. GreenUdyog treats them that way."
+          description="Permits, monitoring data, and safety records stay confidential. Sankalp treats them that way."
         />
         <ScrollRevealStagger className="mt-12 grid gap-5 md:grid-cols-3">
           {items.map((i) => (
@@ -328,44 +359,48 @@ export function Trust() {
 export function Faq() {
   const faqs = [
     {
+      q: "We are a small factory — do we still need pollution board consent?",
+      a: "Often yes, if you discharge effluent, emit air pollutants, handle hazardous waste, or use fuel in boilers or generators. Many small and medium enterprises need Consent to Establish before setup and Consent to Operate before running, issued by your State Pollution Control Board. It depends on your process and your state's Red, Orange, Green, or White categorisation. On a free call we help you check what applies to your unit.",
+    },
+    {
       q: "We are a small unit — can the government still scrutinise our emissions?",
-      a: "Yes. If you have an air consent (CTE/CTO), use boilers, furnaces, or DG sets, or fall in a polluted industrial cluster, SPCB and CPCB can ask for stack data, monitoring reports, and proof you are within limits. Size does not remove scrutiny — weak records do increase it. On a free call we help you see your exposure.",
+      a: "Yes. If you hold air pollution consent, use boilers, furnaces, or diesel generators, or operate in a polluted industrial cluster, your State Pollution Control Board and the Central Pollution Control Board can ask for chimney stack data, monitoring reports, and proof you are within limits. Plant size does not remove scrutiny — weak records do increase it. On a free call we help you see your exposure.",
     },
     {
       q: "What air pollutants usually trigger action in India?",
-      a: "Common focus areas are particulate matter (PM), sulphur dioxide (SO₂), nitrogen oxides (NOx), and sometimes VOCs or industry-specific parameters — all often capped in your consent in mg/Nm³. Exceedances, missing tests, or visible fugitive dust can lead to notices, directions, or closure threats depending on your state board.",
+      a: "Regulators often focus on particulate matter (fine dust in stack air), sulphur dioxide, nitrogen oxides, and sometimes volatile organic compounds or industry-specific parameters — limits are usually written in your consent order. Exceedances, missed tests, or visible fugitive dust can lead to notices, directions, or closure threats depending on your state board.",
     },
     {
-      q: "Do MSMEs need to worry about carbon emissions?",
-      a: "Routine SPCB consent is still about permitted air pollutants, but carbon shows up through fuel use, electricity, and buyer supply-chain questionnaires. Large OEMs and export customers increasingly ask MSME suppliers for energy and emissions information even when full carbon accounting is not yet mandatory for you.",
+      q: "Do small manufacturers need to worry about carbon emissions?",
+      a: "Routine pollution board consent is still about permitted air and water pollutants, but carbon shows up through fuel use, electricity, and buyer supply-chain questionnaires. Large vehicle and machinery buyers and export customers increasingly ask small suppliers for energy and emissions information even when full carbon accounting is not yet mandatory for you.",
     },
     {
       q: "What happens if we exceed a stack limit on a lab report?",
-      a: "You may need to inform the board, explain the cause, show corrective action, and re-test. Repeat or serious exceedances raise enforcement risk. We help you tie each limit in your CTO to a monitoring plan and a paper trail if something goes wrong.",
+      a: "You may need to inform the pollution board, explain the cause, show corrective action, and re-test. Repeat or serious exceedances raise enforcement risk. We help you tie each limit in your Consent to Operate to a monitoring plan and a paper trail if something goes wrong.",
     },
     {
       q: "How often must we test stack emissions?",
-      a: "Frequency is in your consent and CPCB/SPCB sector guidelines — monthly, quarterly, six-monthly, or annual depending on industry and parameter. Missing a cycle is one of the most common findings in inspections. We convert those lines into a calendar your team can run.",
+      a: "Frequency is written in your consent order and in Central and State Pollution Control Board sector guidelines — monthly, quarterly, six-monthly, or annual depending on industry and parameter. Missing a cycle is one of the most common findings in inspections. We convert those lines into a calendar your team can run.",
     },
     {
-      q: "Our DG set runs only during power cuts — does it still count?",
+      q: "Our diesel generator runs only during power cuts — does it still count?",
       a: "Often yes for consent and fuel records if it is listed as a source or uses diesel above thresholds your state cares about. Boards may ask for stack or noise data and fuel logs. We clarify what your consent and local rules expect for backup generators.",
     },
     {
-      q: "What is NCAP and does it affect our factory?",
-      a: "The National Clean Air Programme pushes states to improve air quality in non-attainment and nearby industrial areas. That can mean tighter local action, more monitoring, and attention to MSME stacks in hotspot cities. If you operate in or supply plants in those regions, scrutiny can intensify even without a change in your CTO.",
+      q: "What is the National Clean Air Programme and does it affect our factory?",
+      a: "The National Clean Air Programme is India's coordinated plan to improve air quality in cities and nearby industrial areas that do not meet standards. That can mean tighter local action, more monitoring, and more attention to small manufacturers' chimneys in hotspot cities. If you operate in or supply plants in those regions, scrutiny can intensify even without a change in your consent order.",
     },
     {
-      q: "A buyer sent a carbon or ESG form — can you help?",
-      a: "Yes. Many MSMEs must report fuel, electricity, and basic emissions-related data to customers without a sustainability team. We help you map consent limits, monitoring results, and energy records into answers you can stand behind.",
+      q: "A buyer sent a carbon or sustainability form — can you help?",
+      a: "Yes. Many small manufacturers must report fuel, electricity, and basic emissions-related data to customers without a sustainability team. We help you map consent limits, monitoring results, and energy records into answers you can stand behind.",
     },
     {
       q: "Is the online consultation free? What should we bring?",
-      a: "Yes — 30 minutes at no cost. Bring your latest air CTO (if any), recent stack or ambient reports, rough fuel and DG usage, and your state and district. PDFs or photos are enough for a first conversation.",
+      a: "Yes — 30 minutes at no cost. Bring your latest air Consent to Operate (if any), recent chimney stack or ambient air reports, rough fuel and diesel generator usage, and your state and district. Scanned documents or phone photos are enough for a first conversation.",
     },
     {
       q: "Are you the pollution board or a law firm?",
-      a: "Neither. GreenUdyog is affordable emissions and compliance support for MSMEs — not SPCB/CPCB and not legal counsel. For court cases, contested shutdown orders, or formal submissions you may still need a qualified consultant or advocate in your state.",
+      a: "Neither. Sankalp is affordable compliance support for small and medium manufacturers — not a State or Central Pollution Control Board office and not legal counsel. For court cases, contested shutdown orders, or formal board submissions you may still need a qualified consultant or advocate in your state.",
     },
   ];
 
@@ -373,9 +408,9 @@ export function Faq() {
     <section id="faq" className="border-b border-border bg-surface">
       <div className="mx-auto max-w-3xl px-5 py-20 sm:px-8">
         <SectionHeading
-          eyebrow="FAQ"
-          title="Questions MSME owners ask about emissions"
-          description="Straight answers on stack limits, carbon pressure, and government scrutiny — book a free call if yours is not listed."
+          eyebrow="Common questions"
+          title="Questions small manufacturers ask us"
+          description="Straight answers on permits, safety, stack limits, and carbon pressure — book a review if yours is not listed."
         />
         <Accordion type="single" collapsible className="mt-10">
           {faqs.map((f) => (
@@ -398,17 +433,17 @@ export function SocialProof() {
   const quotes = [
     {
       quote:
-        "After a stack exceedance notice, we finally had one place for limits, lab reports, and follow-up tasks.",
-      role: "Plant Head, foundry MSME, Maharashtra",
+        "After a board notice, we finally had one place for consents, lab reports, and follow-up tasks.",
+      role: "Plant Head, foundry, Maharashtra",
     },
     {
       quote:
-        "Our OEM asked for energy and emissions data we had never tracked. GreenUdyog helped us start without a big consultancy.",
+        "A large buyer asked for sustainability data we had never tracked. Sankalp helped us start without a big consultancy.",
       role: "Operations lead, auto components, Chennai",
     },
     {
       quote:
-        "Stack monitoring dates used to live in someone's diary. Now the whole team sees what SPCB expects.",
+        "Renewal and monitoring dates used to live in someone's diary. Now the whole team sees what is due.",
       role: "Proprietor, metal fabrication, Gujarat",
     },
   ];
@@ -417,9 +452,9 @@ export function SocialProof() {
     <section className="border-b border-border bg-background">
       <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8">
         <SectionHeading
-          eyebrow="Trusted by MSME teams"
-          title="Built for plants under the emissions microscope"
-          description="Stories from Indian MSMEs getting ahead of air-pollution and carbon questions."
+          eyebrow="Trusted by plant teams"
+          title="Built for manufacturers who cannot hire a full compliance desk"
+          description="Stories from Indian small and medium manufacturers getting ahead of regulator and buyer questions."
         />
         <ScrollRevealStagger className="mt-12 grid gap-5 md:grid-cols-3">
           {quotes.map((q) => (

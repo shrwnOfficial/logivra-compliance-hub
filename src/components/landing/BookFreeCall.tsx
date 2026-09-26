@@ -15,12 +15,12 @@ import {
 } from "@/lib/api";
 
 const INTERESTS = [
-  "Stack emissions & consent limits (PM, SO₂, NOx)",
-  "Carbon / fuel use & energy records",
-  "Boiler, furnace & DG set compliance",
-  "Stack monitoring & lab reports",
-  "SPCB notice or exceedance follow-up",
-  "Buyer carbon / ESG questionnaires",
+  "Air, water, or hazardous waste pollution consent",
+  "Chimney stack, effluent, or emissions monitoring",
+  "Boiler, furnace, or diesel generator compliance",
+  "Factory or labour safety compliance",
+  "State Pollution Control Board notice or exceedance follow-up",
+  "Buyer carbon or sustainability questionnaire",
 ];
 
 function formatSlotIST(iso: string) {
@@ -158,12 +158,12 @@ export function BookFreeCall() {
       <div className="mx-auto max-w-4xl px-5 py-20 sm:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-semibold text-primary-foreground sm:text-4xl">
-            Book a free online consultation
+            Tell us what you&apos;re dealing with
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-primary-foreground/85 sm:text-lg">
-            30 minutes with our team — carbon footprint basics, stack air pollutants, monitoring
-            schedules, and what triggers SPCB or CPCB scrutiny for Indian MSMEs. No consultant fees
-            for this call.
+            We&apos;ll go through your consents, permits, and records, and set you up with a
+            compliance model built around your actual regulatory obligations. Free 30-minute review
+            for Indian small and medium manufacturers.
           </p>
         </div>
 
@@ -171,7 +171,7 @@ export function BookFreeCall() {
           <div className="mx-auto mt-10 max-w-lg rounded-2xl bg-background/15 p-8 text-center backdrop-blur">
             <p className="text-lg font-medium text-primary-foreground">You are all set.</p>
             <p className="mt-2 text-sm text-primary-foreground/80">
-              We sent a confirmation to your email. Times are in India Standard Time (IST).
+              We sent a confirmation to your email. Times are in India Standard Time.
             </p>
             <button
               type="button"
@@ -207,7 +207,7 @@ export function BookFreeCall() {
 
             {mode === "slot" && (
               <div className="space-y-3">
-                <Label className="text-foreground">Available slots (IST)</Label>
+                <Label className="text-foreground">Available slots (India Standard Time)</Label>
                 {loadingSlots ? (
                   <p className="text-sm text-muted-foreground">Loading slots…</p>
                 ) : slots.length === 0 ? (
@@ -252,7 +252,7 @@ export function BookFreeCall() {
                   required
                   value={callbackNote}
                   onChange={(e) => setCallbackNote(e.target.value)}
-                  placeholder="e.g. Weekday evenings after 5 PM IST"
+                  placeholder="e.g. Weekday evenings after 5 in the evening, India Standard Time"
                   className="mt-2"
                 />
               </div>
@@ -302,7 +302,7 @@ export function BookFreeCall() {
                 />
               </div>
               <div className="sm:col-span-2">
-                <Label htmlFor="udyam">Udyam registration (optional)</Label>
+                <Label htmlFor="udyam">Udyam small-enterprise registration number (optional)</Label>
                 <Input
                   id="udyam"
                   value={udyam}
@@ -330,18 +330,21 @@ export function BookFreeCall() {
               </div>
             </div>
 
+            <p className="text-sm text-muted-foreground">
+              We&apos;ll review your documents and show you exactly what applies to your plant.
+            </p>
             <Button type="submit" size="cta" disabled={busy}>
               {busy
                 ? "Submitting…"
                 : mode === "slot"
-                  ? "Confirm free call"
-                  : "Send callback request"}
+                  ? "Book my review"
+                  : "Book my review"}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
             <p className="text-xs text-muted-foreground">
               By submitting, you agree we may contact you about compliance services. We handle data
-              per India&apos;s DPDP Act. This is not legal advice — always confirm with your SPCB or
-              counsel.
+              per India&apos;s Digital Personal Data Protection Act. This is not legal advice — always
+              confirm with your State Pollution Control Board or counsel.
             </p>
           </form>
         )}

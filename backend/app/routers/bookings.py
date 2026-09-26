@@ -47,7 +47,7 @@ def _format_ist(iso: str) -> str:
     dt = datetime.fromisoformat(iso.replace("Z", "+00:00"))
     if dt.tzinfo is None:
         dt = dt.replace(tzinfo=timezone.utc)
-    return dt.astimezone(IST).strftime("%d %b %Y, %I:%M %p IST")
+    return dt.astimezone(IST).strftime("%d %b %Y, %I:%M %p India Standard Time")
 
 
 async def _meeting_url() -> str:
