@@ -6,7 +6,6 @@ import {
   Features,
   HowItWorks,
   Problem,
-  SocialProof,
   Trust,
   WhoItsFor,
 } from "@/components/landing/Sections";
@@ -51,9 +50,6 @@ function Index() {
         </ScrollReveal>
         <ScrollReveal scale delay={0.05}>
           <Features />
-        </ScrollReveal>
-        <ScrollReveal scale>
-          <SocialProof />
         </ScrollReveal>
         <ScrollReveal delay={0.05}>
           <Trust />

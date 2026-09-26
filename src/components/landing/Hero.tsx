@@ -33,7 +33,7 @@ export function Hero() {
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">
               Understand your permit requirements before regulatory action becomes necessary. Submit
               your documentation and receive a clear, structured, trackable compliance plan tailored
-              to your plant — built for Indian small and medium manufacturers.
+              to your requirement.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
