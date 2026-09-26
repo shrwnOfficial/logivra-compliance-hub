@@ -14,7 +14,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { adminFetch, getApiUrl } from "@/lib/api";
 import { getAccessToken, isAdminUser } from "@/lib/admin-auth";
 
-const title = "Admin — Sankalp";
+const title = "Admin: Sankalp";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({

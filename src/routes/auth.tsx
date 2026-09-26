@@ -114,7 +114,7 @@ function AuthPage() {
         <h1 className="mt-4 text-2xl font-semibold text-foreground">Sign in to Sankalp</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Founder admin access only (Shrawan, Shivank, Surya). Use the team password provided at
-          setup — accounts are pre-created; no signup or confirmation email needed.
+          setup: accounts are pre-created; no signup or confirmation email needed.
         </p>
 
         <form className="mt-6 space-y-4" onSubmit={handleSubmit}>

@@ -34,7 +34,7 @@ export function Footer() {
             <SankalpLogo className="h-10 w-10" showWordmark />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
               {BRAND.name} helps Indian small and medium manufacturers turn consents, licenses, and safety obligations into a
-              plan they can track — before regulators or buyers come asking.
+              plan they can track before regulators or buyers come asking.
             </p>
           </div>
 

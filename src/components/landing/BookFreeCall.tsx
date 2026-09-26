@@ -349,7 +349,7 @@ export function BookFreeCall() {
             </Button>
             <p className="text-xs text-muted-foreground">
               By submitting, you agree we may contact you about compliance services. We handle data
-              per India&apos;s Digital Personal Data Protection Act. This is not legal advice — always
+              per India&apos;s Digital Personal Data Protection Act. This is not legal advice. Always
               confirm with your State Pollution Control Board or counsel.
             </p>
           </form>

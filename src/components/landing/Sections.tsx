@@ -67,7 +67,7 @@ export function Problem() {
     {
       icon: Scale,
       title: "Non-compliance carries real consequences",
-      body: "Missed or breached conditions can mean penalties, show-cause notices, or escalation toward closure — most of it avoidable with a system that tracks what you are already obligated to do.",
+      body: "Missed or breached conditions can mean penalties, show-cause notices, or escalation toward closure, most of it avoidable with a system that tracks what you are already obligated to do.",
     },
   ];
 
@@ -77,7 +77,7 @@ export function Problem() {
         <SectionHeading
           eyebrow="The problem"
           title="Small plants face the same scrutiny as large ones"
-          description="Regulators do not distinguish by size when it comes to compliance — environmental, safety, or labour. You should not need a ₹15 lakh consultant to know what could bring enforcement to your gate."
+          description="Regulators do not distinguish by size when it comes to compliance: environmental, safety, or labour. You should not need a ₹15 lakh consultant to know what could bring enforcement to your gate."
         />
         <ScrollRevealStagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {pains.map((p) => (
@@ -104,7 +104,7 @@ export function HowItWorks() {
       icon: ScanLine,
       step: "01",
       title: "Submit your documentation",
-      body: "Share consents, licenses, safety records, and past regulator correspondence — digital or scanned.",
+      body: "Share consents, licenses, safety records, and past regulator correspondence, digital or scanned.",
     },
     {
       icon: ClipboardList,
@@ -129,7 +129,7 @@ export function HowItWorks() {
               center={false}
               eyebrow="How it works"
               title="From your paperwork to a compliance plan you can run"
-              description="Three steps — for small and medium manufacturers managing environmental, safety, and labour duties without a full-time compliance desk."
+              description="Three steps for small and medium manufacturers managing environmental, safety, and labour duties without a full-time compliance desk."
             />
             <ScrollRevealStagger className="mt-10 space-y-5" stagger={0.1}>
               {steps.map((s) => (
@@ -199,7 +199,7 @@ export function Features() {
     {
       icon: Gauge,
       title: "Plant & multi-site view",
-      body: "See which sites or units are green, due soon, or at risk — without rebuilding spreadsheets.",
+      body: "See which sites or units are green, due soon, or at risk, without rebuilding spreadsheets.",
     },
     {
       icon: Share2,
@@ -214,7 +214,7 @@ export function Features() {
         <SectionHeading
           eyebrow="Platform"
           title="Built around what your permits actually require"
-          description="Grounded in Indian environmental, safety, and labour law — covering air, water, waste, and growing buyer expectations on carbon and sustainability data, not just one regulation."
+          description="Grounded in Indian environmental, safety, and labour law, covering air, water, waste, and growing buyer expectations on carbon and sustainability data, not just one regulation."
         />
         <ScrollRevealStagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((f) => (
@@ -359,16 +359,16 @@ export function Trust() {
 export function Faq() {
   const faqs = [
     {
-      q: "We are a small factory — do we still need pollution board consent?",
+      q: "We are a small factory: do we still need pollution board consent?",
       a: "Often yes, if you discharge effluent, emit air pollutants, handle hazardous waste, or use fuel in boilers or generators. Many small and medium enterprises need Consent to Establish before setup and Consent to Operate before running, issued by your State Pollution Control Board. It depends on your process and your state's Red, Orange, Green, or White categorisation. On a free call we help you check what applies to your unit.",
     },
     {
-      q: "We are a small unit — can the government still scrutinise our emissions?",
-      a: "Yes. If you hold air pollution consent, use boilers, furnaces, or diesel generators, or operate in a polluted industrial cluster, your State Pollution Control Board and the Central Pollution Control Board can ask for chimney stack data, monitoring reports, and proof you are within limits. Plant size does not remove scrutiny — weak records do increase it. On a free call we help you see your exposure.",
+      q: "We are a small unit: can the government still scrutinise our emissions?",
+      a: "Yes. If you hold air pollution consent, use boilers, furnaces, or diesel generators, or operate in a polluted industrial cluster, your State Pollution Control Board and the Central Pollution Control Board can ask for chimney stack data, monitoring reports, and proof you are within limits. Plant size does not remove scrutiny; weak records do increase it. On a free call we help you see your exposure.",
     },
     {
       q: "What air pollutants usually trigger action in India?",
-      a: "Regulators often focus on particulate matter (fine dust in stack air), sulphur dioxide, nitrogen oxides, and sometimes volatile organic compounds or industry-specific parameters — limits are usually written in your consent order. Exceedances, missed tests, or visible fugitive dust can lead to notices, directions, or closure threats depending on your state board.",
+      a: "Regulators often focus on particulate matter (fine dust in stack air), sulphur dioxide, nitrogen oxides, and sometimes volatile organic compounds or industry-specific parameters; limits are usually written in your consent order. Exceedances, missed tests, or visible fugitive dust can lead to notices, directions, or closure threats depending on your state board.",
     },
     {
       q: "Do small manufacturers need to worry about carbon emissions?",
@@ -380,10 +380,10 @@ export function Faq() {
     },
     {
       q: "How often must we test stack emissions?",
-      a: "Frequency is written in your consent order and in Central and State Pollution Control Board sector guidelines — monthly, quarterly, six-monthly, or annual depending on industry and parameter. Missing a cycle is one of the most common findings in inspections. We convert those lines into a calendar your team can run.",
+      a: "Frequency is written in your consent order and in Central and State Pollution Control Board sector guidelines (monthly, quarterly, six-monthly, or annual depending on industry and parameter). Missing a cycle is one of the most common findings in inspections. We convert those lines into a calendar your team can run.",
     },
     {
-      q: "Our diesel generator runs only during power cuts — does it still count?",
+      q: "Our diesel generator runs only during power cuts: does it still count?",
       a: "Often yes for consent and fuel records if it is listed as a source or uses diesel above thresholds your state cares about. Boards may ask for stack or noise data and fuel logs. We clarify what your consent and local rules expect for backup generators.",
     },
     {
@@ -391,16 +391,16 @@ export function Faq() {
       a: "The National Clean Air Programme is India's coordinated plan to improve air quality in cities and nearby industrial areas that do not meet standards. That can mean tighter local action, more monitoring, and more attention to small manufacturers' chimneys in hotspot cities. If you operate in or supply plants in those regions, scrutiny can intensify even without a change in your consent order.",
     },
     {
-      q: "A buyer sent a carbon or sustainability form — can you help?",
+      q: "A buyer sent a carbon or sustainability form: can you help?",
       a: "Yes. Many small manufacturers must report fuel, electricity, and basic emissions-related data to customers without a sustainability team. We help you map consent limits, monitoring results, and energy records into answers you can stand behind.",
     },
     {
       q: "Is the online consultation free? What should we bring?",
-      a: "Yes — 30 minutes at no cost. Bring your latest air Consent to Operate (if any), recent chimney stack or ambient air reports, rough fuel and diesel generator usage, and your state and district. Scanned documents or phone photos are enough for a first conversation.",
+      a: "Yes, 30 minutes at no cost. Bring your latest air Consent to Operate (if any), recent chimney stack or ambient air reports, rough fuel and diesel generator usage, and your state and district. Scanned documents or phone photos are enough for a first conversation.",
     },
     {
       q: "Are you the pollution board or a law firm?",
-      a: "Neither. Sankalp is affordable compliance support for small and medium manufacturers — not a State or Central Pollution Control Board office and not legal counsel. For court cases, contested shutdown orders, or formal board submissions you may still need a qualified consultant or advocate in your state.",
+      a: "Neither. Sankalp is affordable compliance support for small and medium manufacturers, not a State or Central Pollution Control Board office and not legal counsel. For court cases, contested shutdown orders, or formal board submissions you may still need a qualified consultant or advocate in your state.",
     },
   ];
 
@@ -410,7 +410,7 @@ export function Faq() {
         <SectionHeading
           eyebrow="Common questions"
           title="Questions small manufacturers ask us"
-          description="Straight answers on permits, safety, stack limits, and carbon pressure — book a review if yours is not listed."
+          description="Straight answers on permits, safety, stack limits, and carbon pressure. Book a review if yours is not listed."
         />
         <Accordion type="single" collapsible className="mt-10">
           {faqs.map((f) => (

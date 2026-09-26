@@ -13,9 +13,9 @@ import { BookFreeCall } from "@/components/landing/BookFreeCall";
 import { Footer } from "@/components/landing/Footer";
 import { ScrollReveal } from "@/components/landing/ScrollReveal";
 
-const title = "Sankalp — Compliance mapped from your paperwork";
+const title = "Sankalp: Compliance mapped from your paperwork";
 const description =
-  "Environmental and safety compliance for Indian small and medium manufacturers. Understand permit requirements before regulatory action — book a free document review.";
+  "Environmental and safety compliance for Indian small and medium manufacturers. Understand permit requirements before regulatory action. Book a free document review.";
 
 export const Route = createFileRoute("/")({
   head: () => ({

@@ -78,18 +78,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Sankalp — Compliance mapped from your paperwork" },
+      { title: "Sankalp: Compliance mapped from your paperwork" },
       {
         name: "description",
         content:
-          "Environmental and safety compliance for Indian small and medium manufacturers. Permits, monitoring, and regulatory obligations — book a free document review.",
+          "Environmental and safety compliance for Indian small and medium manufacturers. Permits, monitoring, and regulatory obligations. Book a free document review.",
       },
       { name: "author", content: "Sankalp" },
       { property: "og:title", content: "Sankalp" },
       {
         property: "og:description",
         content:
-          "Compliance mapped from your paperwork — environmental, safety, and labour obligations for Indian manufacturers.",
+          "Compliance mapped from your paperwork: environmental, safety, and labour obligations for Indian manufacturers.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
