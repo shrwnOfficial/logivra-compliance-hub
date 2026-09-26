@@ -1,0 +1,31 @@
+<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="8" y1="72" x2="72" y2="8">
+      <stop stop-color="#0f766e"/>
+      <stop offset="0.55" stop-color="#14b8a6"/>
+      <stop offset="1" stop-color="#99f6e4"/>
+    </linearGradient>
+    <radialGradient id="ocean" cx="0.35" cy="0.35" r="0.85">
+      <stop stop-color="#67e8f9"/>
+      <stop offset="0.45" stop-color="#0d9488"/>
+      <stop offset="1" stop-color="#115e59"/>
+    </radialGradient>
+    <linearGradient id="land" x1="30" y1="32" x2="50" y2="48">
+      <stop stop-color="#86efac"/>
+      <stop offset="1" stop-color="#16a34a"/>
+    </linearGradient>
+    <linearGradient id="sclera" x1="40" y1="26" x2="40" y2="54">
+      <stop stop-color="#f0fdfa"/>
+      <stop offset="1" stop-color="#ccfbf1"/>
+    </linearGradient>
+    <clipPath id="clipEarth"><circle cx="40" cy="40" r="15.5"/></clipPath>
+  </defs>
+  <rect width="80" height="80" rx="20" fill="url(#bg)"/>
+  <path d="M18 40 C18 40 26 27 40 27 C54 27 62 40 62 40 C62 40 54 53 40 53 C26 53 18 40 18 40 Z" fill="url(#sclera)" fill-opacity="0.95"/>
+  <circle cx="40" cy="40" r="15.5" fill="url(#ocean)"/>
+  <g clip-path="url(#clipEarth)">
+    <path d="M26 38 C30 34 36 32 40 33 C46 32 50 36 54 40 C50 44 44 46 40 45 C34 46 30 42 26 38 Z" fill="url(#land)" fill-opacity="0.92"/>
+    <path d="M32 44 C34 42 38 41 42 42 C46 43 48 46 46 48 C42 49 36 48 32 44 Z" fill="#22c55e" fill-opacity="0.75"/>
+  </g>
+  <circle cx="46" cy="34" r="3.5" fill="#f0fdfa" fill-opacity="0.85"/>
+</svg>

@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { toast } from "sonner";
-import { GreenUdyogLogo } from "@/components/landing/GreenUdyogLogo";
+import { SankalpLogo, BRAND } from "@/components/landing/SankalpLogo";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
@@ -14,7 +14,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { adminFetch, getApiUrl } from "@/lib/api";
 import { getAccessToken, isAdminUser } from "@/lib/admin-auth";
 
-const title = "Admin — GreenUdyog";
+const title = "Admin — Sankalp";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
@@ -174,8 +174,8 @@ function AdminPage() {
       <header className="border-b border-border bg-background">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
           <Link to="/" className="flex items-center gap-2">
-            <GreenUdyogLogo className="h-9 w-9" />
-            <span className="font-display text-lg font-semibold">GreenUdyog Admin</span>
+            <SankalpLogo className="h-9 w-9" />
+            <span className="font-display text-lg font-semibold">{BRAND.name} Admin</span>
           </Link>
           <Button variant="outline" size="sm" onClick={() => void signOut()}>
             Sign out
@@ -184,7 +184,7 @@ function AdminPage() {
       </header>
 
       <main className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
-        <p className="text-sm text-muted-foreground">Emissions clarity for small manufacturers</p>
+        <p className="text-sm text-muted-foreground">{BRAND.tagline}</p>
         <h1 className="mt-1 text-2xl font-semibold sm:text-3xl">Dashboard</h1>
 
         <Tabs defaultValue="analytics" className="mt-8">
@@ -334,7 +334,7 @@ function AdminPage() {
               </div>
             </div>
             <div className="rounded-2xl border border-border bg-background p-5">
-              <h2 className="font-semibold">Add consultation slot (IST)</h2>
+              <h2 className="font-semibold">Add consultation slot (India Standard Time)</h2>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 <div>
                   <Label>Starts</Label>

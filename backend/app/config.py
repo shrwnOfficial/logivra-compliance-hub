@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     admin_notify_emails: str = "shaan.09042@gmail.com,shivankrao7@gmail.com"
     default_meeting_url: str = ""
     cors_origins: str = "http://localhost:5173,http://localhost:3000"
-    from_email: str = "GreenUdyog <onboarding@resend.dev>"
+    from_email: str = "Sankalp <onboarding@resend.dev>"
 
     @property
     def cors_origin_list(self) -> list[str]:

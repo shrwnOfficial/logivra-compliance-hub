@@ -33,22 +33,22 @@ async def notify_booking(
     booking_id: str,
 ) -> None:
     admin_html = f"""
-    <p>New <strong>free consultation</strong> booked on GreenUdyog.</p>
+    <p>New <strong>free consultation</strong> booked on Sankalp.</p>
     <ul>
       <li><strong>Name:</strong> {client_name}</li>
       <li><strong>Email:</strong> {client_email}</li>
       <li><strong>Company:</strong> {company}</li>
-      <li><strong>Slot (IST):</strong> {starts_at_ist}</li>
+      <li><strong>Slot (India Standard Time):</strong> {starts_at_ist}</li>
       <li><strong>Booking ID:</strong> {booking_id}</li>
     </ul>
     """
     client_html = f"""
     <p>Hi {client_name},</p>
-    <p>Your free online EHS consultation with <strong>GreenUdyog</strong> is confirmed.</p>
-    <p><strong>When (IST):</strong> {starts_at_ist}</p>
+    <p>Your free online compliance review with <strong>Sankalp</strong> is confirmed.</p>
+    <p><strong>When (India Standard Time):</strong> {starts_at_ist}</p>
     <p><strong>Join link:</strong> <a href="{meeting_url}">{meeting_url or "We will email you the link shortly."}</a></p>
-    <p>Compliance for small manufacturers — we look forward to speaking with you.</p>
+    <p>Compliance mapped from your paperwork — we look forward to speaking with you.</p>
     """
     if settings.admin_emails:
-        await send_email(settings.admin_emails, "New GreenUdyog consultation booking", admin_html)
-    await send_email([client_email], "Your GreenUdyog consultation is confirmed", client_html)
+        await send_email(settings.admin_emails, "New Sankalp consultation booking", admin_html)
+    await send_email([client_email], "Your Sankalp consultation is confirmed", client_html)

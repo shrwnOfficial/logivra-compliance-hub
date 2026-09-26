@@ -1,4 +1,4 @@
-import { GreenUdyogLogo } from "@/components/landing/GreenUdyogLogo";
+import { SankalpLogo, BRAND } from "@/components/landing/SankalpLogo";
 
 const groups = [
   {
@@ -7,21 +7,21 @@ const groups = [
       { label: "How it works", href: "#how-it-works" },
       { label: "Features", href: "#features" },
       { label: "Security", href: "#trust" },
-      { label: "FAQ", href: "#faq" },
+      { label: "Common questions", href: "#faq" },
     ],
   },
   {
-    title: "Emissions focus",
+    title: "Compliance",
     links: [
-      { label: "Stack & air consent", href: "#who" },
-      { label: "Carbon & fuel records", href: "#who" },
-      { label: "Monitoring & testing", href: "#features" },
+      { label: "Environmental permits", href: "#who" },
+      { label: "Safety & labour", href: "#who" },
+      { label: "Monitoring & renewals", href: "#features" },
       { label: "Regulator readiness", href: "#trust" },
     ],
   },
   {
     title: "Get started",
-    links: [{ label: "Free consultation", href: "#demo" }],
+    links: [{ label: "Book my review", href: "#demo" }],
   },
 ];
 
@@ -31,10 +31,10 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <GreenUdyogLogo className="h-10 w-10" showWordmark />
+            <SankalpLogo className="h-10 w-10" showWordmark />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Affordable online support for Indian MSMEs on carbon, stack emissions, and related air
-              pollutants — so government scrutiny does not catch you unprepared.
+              {BRAND.name} helps Indian small and medium manufacturers turn consents, licenses, and safety obligations into a
+              plan they can track — before regulators or buyers come asking.
             </p>
           </div>
 
@@ -59,9 +59,9 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col gap-3 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} GreenUdyog. Information is not legal advice.
+            © {new Date().getFullYear()} {BRAND.name}. Information is not legal advice.
           </p>
-          <p className="text-xs text-muted-foreground">Made for India · Times in IST</p>
+          <p className="text-xs text-muted-foreground">Made for India · Times in India Standard Time</p>
         </div>
       </div>
     </footer>

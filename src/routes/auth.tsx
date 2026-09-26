@@ -9,8 +9,8 @@ import { toast } from "sonner";
 import { isAllowlistedAdminEmail } from "@/lib/admin-allowlist";
 import { isAdminUser } from "@/lib/admin-auth";
 
-const title = "GreenUdyog team sign in";
-const description = "Sign in to the GreenUdyog admin workspace.";
+const title = "Sankalp team sign in";
+const description = "Sign in to the Sankalp admin workspace.";
 
 export const Route = createFileRoute("/auth")({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -111,7 +111,7 @@ function AuthPage() {
         <Link to="/" className="text-xs text-muted-foreground hover:text-foreground">
           &larr; Back to site
         </Link>
-        <h1 className="mt-4 text-2xl font-semibold text-foreground">Sign in to GreenUdyog</h1>
+        <h1 className="mt-4 text-2xl font-semibold text-foreground">Sign in to Sankalp</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Founder admin access only (Shrawan, Shivank, Surya). Use the team password provided at
           setup — accounts are pre-created; no signup or confirmation email needed.
