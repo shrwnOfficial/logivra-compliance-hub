@@ -129,7 +129,7 @@ export function HowItWorks() {
               center={false}
               eyebrow="How it works"
               title="From your paperwork to a compliance plan you can run"
-              description="Three steps — for Udyam-registered small and medium manufacturers managing environmental, safety, and labour duties without a full-time compliance desk."
+              description="Three steps — for small and medium manufacturers managing environmental, safety, and labour duties without a full-time compliance desk."
             />
             <ScrollRevealStagger className="mt-10 space-y-5" stagger={0.1}>
               {steps.map((s) => (

@@ -10,6 +10,7 @@ import {
   createBooking,
   createCallbackRequest,
   fetchAvailableSlots,
+  getNext3DaysSlots,
   trackSiteEvent,
   type ConsultationSlot,
 } from "@/lib/api";
@@ -34,16 +35,24 @@ function formatSlotIST(iso: string) {
   });
 }
 
+function formatSlotTimeIST(iso: string) {
+  return new Date(iso).toLocaleTimeString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+}
+
 export function BookFreeCall() {
-  const [slots, setSlots] = useState<ConsultationSlot[]>([]);
-  const [loadingSlots, setLoadingSlots] = useState(true);
+  const [slots, setSlots] = useState<ConsultationSlot[]>(() => getNext3DaysSlots());
+  const [loadingSlots, setLoadingSlots] = useState(false);
   const [slotId, setSlotId] = useState("");
   const [mode, setMode] = useState<"slot" | "callback">("slot");
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
   const [company, setCompany] = useState("");
   const [phone, setPhone] = useState("");
-  const [udyam, setUdyam] = useState("");
   const [interests, setInterests] = useState<string[]>([]);
   const [callbackNote, setCallbackNote] = useState("");
   const [busy, setBusy] = useState(false);
@@ -73,9 +82,9 @@ export function BookFreeCall() {
     (async () => {
       try {
         const data = await fetchAvailableSlots();
-        if (!cancelled) setSlots(data.slice(0, 24));
+        if (!cancelled && data.length > 0) setSlots(data.slice(0, 24));
       } catch {
-        if (!cancelled) toast.error("Could not load consultation slots.");
+        // Keeps the default next 3 days slots
       } finally {
         if (!cancelled) setLoadingSlots(false);
       }
@@ -115,13 +124,18 @@ export function BookFreeCall() {
           toast.error("Please choose a time slot.");
           return;
         }
+        const selectedSlot = slots.find((s) => s.id === slotId);
+        const slotTimeFormatted = selectedSlot
+          ? formatSlotIST(selectedSlot.starts_at)
+          : undefined;
+
         await createBooking({
           slot_id: slotId,
+          slot_time: slotTimeFormatted,
           email: email.trim(),
           full_name: fullName.trim(),
           company: company.trim(),
           phone: phone.trim(),
-          udyam_id: udyam.trim() || undefined,
           pollution_interests: interests,
         });
       } else {
@@ -210,15 +224,11 @@ export function BookFreeCall() {
                 <Label className="text-foreground">Available slots (India Standard Time)</Label>
                 {loadingSlots ? (
                   <p className="text-sm text-muted-foreground">Loading slots…</p>
-                ) : slots.length === 0 ? (
-                  <p className="text-sm text-muted-foreground">
-                    No slots open right now — use callback request and we will reach out.
-                  </p>
                 ) : (
-                  <div className="max-h-48 space-y-3 overflow-y-auto rounded-xl border border-border p-3">
+                  <div className="max-h-56 space-y-4 overflow-y-auto rounded-xl border border-border p-3.5">
                     {[...slotsByDay.entries()].map(([day, daySlots]) => (
                       <div key={day}>
-                        <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                           {day}
                         </p>
                         <div className="mt-2 flex flex-wrap gap-2">
@@ -227,19 +237,24 @@ export function BookFreeCall() {
                               key={s.id}
                               type="button"
                               onClick={() => setSlotId(s.id)}
-                              className={`rounded-lg border px-3 py-1.5 text-sm transition-colors ${
+                              className={`rounded-lg border px-3.5 py-1.5 text-sm font-medium transition-all ${
                                 slotId === s.id
-                                  ? "border-primary bg-primary text-primary-foreground"
-                                  : "border-border bg-background hover:border-primary"
+                                  ? "border-primary bg-primary text-primary-foreground shadow-sm"
+                                  : "border-border bg-background hover:border-primary/60 hover:bg-muted/50"
                               }`}
                             >
-                              {formatSlotIST(s.starts_at)}
+                              {formatSlotTimeIST(s.starts_at)}
                             </button>
                           ))}
                         </div>
                       </div>
                     ))}
                   </div>
+                )}
+                {slotId && (
+                  <p className="text-xs font-medium text-primary">
+                    Selected time: {formatSlotIST(slots.find((s) => s.id === slotId)?.starts_at ?? "")} IST
+                  </p>
                 )}
               </div>
             )}
@@ -298,15 +313,6 @@ export function BookFreeCall() {
                   required
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="mt-2"
-                />
-              </div>
-              <div className="sm:col-span-2">
-                <Label htmlFor="udyam">Udyam small-enterprise registration number (optional)</Label>
-                <Input
-                  id="udyam"
-                  value={udyam}
-                  onChange={(e) => setUdyam(e.target.value)}
                   className="mt-2"
                 />
               </div>
