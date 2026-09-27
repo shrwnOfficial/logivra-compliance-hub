@@ -59,7 +59,7 @@ async def _meeting_url() -> str:
 
 @router.get("/api/slots/available")
 async def list_available_slots() -> list[dict[str, Any]]:
-    now = datetime.now(timezone.utc).isoformat()
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%fZ")
     rows = await db().get(
         "consultation_slots",
         f"is_booked=eq.false&starts_at=gte.{now}&order=starts_at.asc&select=id,starts_at,ends_at",
