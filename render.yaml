@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: greenudyog-api
+    name: sankalp-api
     runtime: docker
     rootDir: backend
     dockerfilePath: ./Dockerfile
@@ -18,6 +18,10 @@ services:
       - key: RESEND_API_KEY
         sync: false
       - key: ADMIN_NOTIFY_EMAILS
-        value: shaan.09042@gmail.com,shivankrao7@gmail.com
+        value: shaan.09042@gmail.com,shivankrao7@gmail.com,suryashubohit@gmail.com
       - key: CORS_ORIGINS
+        sync: false
+      - key: FROM_EMAIL
+        sync: false
+      - key: DEFAULT_MEETING_URL
         sync: false

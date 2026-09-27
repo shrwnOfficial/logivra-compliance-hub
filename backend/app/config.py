@@ -2,15 +2,17 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+    model_config = SettingsConfigDict(env_file=(".env", "../.env"), extra="ignore")
 
     supabase_url: str = ""
     supabase_service_role_key: str = ""
     supabase_jwt_secret: str = ""
     resend_api_key: str = ""
-    admin_notify_emails: str = "shaan.09042@gmail.com,shivankrao7@gmail.com"
+    admin_notify_emails: str = (
+        "shaan.09042@gmail.com,shivankrao7@gmail.com,suryashubohit@gmail.com"
+    )
     default_meeting_url: str = ""
-    cors_origins: str = "http://localhost:5173,http://localhost:3000"
+    cors_origins: str = "http://localhost:5173,http://localhost:3000,http://127.0.0.1:3000"
     from_email: str = "Sankalp <onboarding@resend.dev>"
 
     @property

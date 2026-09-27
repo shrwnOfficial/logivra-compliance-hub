@@ -52,3 +52,42 @@ async def notify_booking(
     if settings.admin_emails:
         await send_email(settings.admin_emails, "New Sankalp consultation booking", admin_html)
     await send_email([client_email], "Your Sankalp consultation is confirmed", client_html)
+
+
+async def notify_callback_request(
+    *,
+    client_email: str,
+    client_name: str,
+    company: str,
+    phone: str,
+    preferred_callback: str,
+    pollution_interests: list[str],
+    booking_id: str,
+) -> None:
+    interests = ", ".join(pollution_interests) if pollution_interests else "—"
+    admin_html = f"""
+    <p>New <strong>callback request</strong> on Sankalp.</p>
+    <ul>
+      <li><strong>Name:</strong> {client_name}</li>
+      <li><strong>Email:</strong> {client_email}</li>
+      <li><strong>Company:</strong> {company}</li>
+      <li><strong>Phone:</strong> {phone}</li>
+      <li><strong>Preferred times:</strong> {preferred_callback}</li>
+      <li><strong>Topics:</strong> {interests}</li>
+      <li><strong>Request ID:</strong> {booking_id}</li>
+    </ul>
+    """
+    client_html = f"""
+    <p>Hi {client_name},</p>
+    <p>We received your callback request on <strong>Sankalp</strong>. Our team will contact you at
+    {phone} or {client_email} using your preferred times below.</p>
+    <p><strong>Your note:</strong> {preferred_callback}</p>
+    <p>Compliance mapped from your paperwork — thank you for reaching out.</p>
+    """
+    if settings.admin_emails:
+        await send_email(
+            settings.admin_emails,
+            "New Sankalp callback request",
+            admin_html,
+        )
+    await send_email([client_email], "We received your Sankalp callback request", client_html)

@@ -7,7 +7,7 @@ from pydantic import BaseModel, EmailStr, Field
 
 from app.auth.jwt import require_admin
 from app.config import settings
-from app.services.email_service import notify_booking
+from app.services.email_service import notify_booking, notify_callback_request
 from app.services.supabase_client import db
 
 router = APIRouter(tags=["bookings"])
@@ -127,7 +127,20 @@ async def create_callback(body: CallbackCreate) -> dict[str, str]:
     )
     if not rows:
         raise HTTPException(status_code=500, detail="Could not save request")
-    return {"id": rows[0]["id"]}
+    row = rows[0]
+    try:
+        await notify_callback_request(
+            client_email=body.email,
+            client_name=body.full_name,
+            company=body.company,
+            phone=body.phone,
+            preferred_callback=body.preferred_callback,
+            pollution_interests=body.pollution_interests,
+            booking_id=row["id"],
+        )
+    except Exception:
+        pass
+    return {"id": row["id"]}
 
 
 @router.post("/api/events")

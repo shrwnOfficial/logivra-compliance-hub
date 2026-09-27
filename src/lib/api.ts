@@ -128,8 +128,11 @@ export async function createBooking(payload: {
       if (res.ok) {
         return res.json();
       }
-    } catch {
-      // Fallback to direct persistence
+      const errBody = (await res.json().catch(() => ({}))) as { detail?: string };
+      throw new Error(errBody.detail ?? `Booking failed (${res.status})`);
+    } catch (e) {
+      if (e instanceof Error) throw e;
+      throw new Error("Could not reach the booking server. Check VITE_API_URL and API health.");
     }
   }
 
@@ -190,8 +193,11 @@ export async function createCallbackRequest(payload: {
         body: JSON.stringify(payload),
       });
       if (res.ok) return res.json();
-    } catch {
-      // fallback
+      const errBody = (await res.json().catch(() => ({}))) as { detail?: string };
+      throw new Error(errBody.detail ?? `Request failed (${res.status})`);
+    } catch (e) {
+      if (e instanceof Error) throw e;
+      throw new Error("Could not reach the booking server. Check VITE_API_URL and API health.");
     }
   }
 

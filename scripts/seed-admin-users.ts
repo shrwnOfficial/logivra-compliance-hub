@@ -40,10 +40,8 @@ const password = process.env.ADMIN_SEED_PASSWORD ?? "admin1";
 const founders: { name: string; email: string }[] = [
   { name: "Shrawan", email: "shaan.09042@gmail.com" },
   { name: "Shivank", email: "shivankrao7@gmail.com" },
+  { name: "Surya", email: "suryashubohit@gmail.com" },
 ];
-
-const surya = process.env.SURYA_ADMIN_EMAIL?.trim();
-if (surya) founders.push({ name: "Surya", email: surya });
 
 if (!url || !serviceKey) {
   console.error("\nCannot seed admin users — missing Supabase credentials in .env\n");

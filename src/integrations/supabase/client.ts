@@ -39,10 +39,12 @@ function createSupabaseClient() {
 
   if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
     const missing = [
-      ...(!SUPABASE_URL ? ["SUPABASE_URL"] : []),
-      ...(!SUPABASE_PUBLISHABLE_KEY ? ["SUPABASE_PUBLISHABLE_KEY"] : []),
+      ...(!SUPABASE_URL ? ["VITE_SUPABASE_URL (or SUPABASE_URL on server)"] : []),
+      ...(!SUPABASE_PUBLISHABLE_KEY
+        ? ["VITE_SUPABASE_PUBLISHABLE_KEY (publishable / anon key — not the service role)"]
+        : []),
     ];
-    const message = `Missing Supabase environment variable(s): ${missing.join(", ")}. Connect Supabase in Lovable Cloud.`;
+    const message = `Missing Supabase environment variable(s): ${missing.join(", ")}. Add them to the project root .env and restart bun run dev.`;
     console.error(`[Supabase] ${message}`);
     throw new Error(message);
   }
