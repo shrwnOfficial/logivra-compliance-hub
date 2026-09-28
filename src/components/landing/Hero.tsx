@@ -5,7 +5,7 @@ import dashboard from "@/assets/dashboard.jpg";
 
 const proof = [
   { icon: FileSearch, text: "Mapped from your consents & permits" },
-  { icon: CalendarCheck, text: "Free document review call" },
+  { icon: CalendarCheck, text: "Book a free consultation call with us" },
   { icon: ShieldCheck, text: "Structured plan you can track" },
 ];
 

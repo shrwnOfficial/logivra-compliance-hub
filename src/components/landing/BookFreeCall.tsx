@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   createBooking,
   createCallbackRequest,
@@ -14,15 +13,6 @@ import {
   trackSiteEvent,
   type ConsultationSlot,
 } from "@/lib/api";
-
-const INTERESTS = [
-  "Air, water, or hazardous waste pollution consent",
-  "Chimney stack, effluent, or emissions monitoring",
-  "Boiler, furnace, or diesel generator compliance",
-  "Factory or labour safety compliance",
-  "State Pollution Control Board notice or exceedance follow-up",
-  "Buyer carbon or sustainability questionnaire",
-];
 
 function formatSlotIST(iso: string) {
   return new Date(iso).toLocaleString("en-IN", {
@@ -53,7 +43,6 @@ export function BookFreeCall() {
   const [fullName, setFullName] = useState("");
   const [company, setCompany] = useState("");
   const [phone, setPhone] = useState("");
-  const [interests, setInterests] = useState<string[]>([]);
   const [callbackNote, setCallbackNote] = useState("");
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
@@ -109,10 +98,6 @@ export function BookFreeCall() {
     return map;
   }, [slots]);
 
-  function toggleInterest(tag: string) {
-    setInterests((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
-  }
-
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (busy) return;
@@ -136,7 +121,7 @@ export function BookFreeCall() {
           full_name: fullName.trim(),
           company: company.trim(),
           phone: phone.trim(),
-          pollution_interests: interests,
+          pollution_interests: [],
         });
       } else {
         await createCallbackRequest({
@@ -145,7 +130,7 @@ export function BookFreeCall() {
           company: company.trim(),
           phone: phone.trim(),
           preferred_callback: callbackNote.trim(),
-          pollution_interests: interests,
+          pollution_interests: [],
         });
       }
       void trackSiteEvent("booking_completed", { mode });
@@ -315,24 +300,6 @@ export function BookFreeCall() {
                   onChange={(e) => setPhone(e.target.value)}
                   className="mt-2"
                 />
-              </div>
-            </div>
-
-            <div>
-              <p className="text-sm font-medium text-foreground">What do you need help with?</p>
-              <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                {INTERESTS.map((tag) => (
-                  <label
-                    key={tag}
-                    className="flex cursor-pointer items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm"
-                  >
-                    <Checkbox
-                      checked={interests.includes(tag)}
-                      onCheckedChange={() => toggleInterest(tag)}
-                    />
-                    {tag}
-                  </label>
-                ))}
               </div>
             </div>
 
