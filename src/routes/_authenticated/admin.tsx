@@ -32,6 +32,22 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
 });
 
+const IST = "Asia/Kolkata";
+
+function formatDateTimeIST(iso: string) {
+  const formatted = new Date(iso).toLocaleString("en-IN", {
+    timeZone: IST,
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+  return `${formatted} IST`;
+}
+
 type Booking = {
   id: string;
   email: string;
@@ -40,6 +56,7 @@ type Booking = {
   phone: string | null;
   status: string;
   booking_type: string;
+  slot_id: string | null;
   pollution_interests: string[] | null;
   preferred_callback: string | null;
   created_at: string;
@@ -95,7 +112,12 @@ function AdminPage() {
     const interests: Record<string, number> = {};
     for (const b of list) {
       by_status[b.status] = (by_status[b.status] ?? 0) + 1;
-      const day = b.created_at.slice(0, 10);
+      const day = new Date(b.created_at).toLocaleDateString("en-IN", {
+        timeZone: IST,
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      });
       by_day[day] = (by_day[day] ?? 0) + 1;
       for (const t of b.pollution_interests ?? []) {
         interests[t] = (interests[t] ?? 0) + 1;
@@ -130,6 +152,28 @@ function AdminPage() {
       toast.error("Could not update status.");
       return;
     }
+    void queryClient.invalidateQueries({ queryKey: ["admin-bookings"] });
+  }
+
+  async function deleteBooking(b: Booking) {
+    const label = b.full_name || b.email;
+    if (!window.confirm(`Delete this lead (${label})? This cannot be undone.`)) return;
+    if (b.slot_id) {
+      await supabase
+        .from("consultation_slots")
+        .update({ is_booked: false })
+        .eq("id", b.slot_id);
+    }
+    const { error } = await supabase.from("consultation_bookings").delete().eq("id", b.id);
+    if (error) {
+      toast.error(
+        error.message.includes("policy")
+          ? "Could not delete. Run migration 20260928194500_admin_delete_bookings in Supabase."
+          : "Could not delete lead.",
+      );
+      return;
+    }
+    toast.success("Lead deleted.");
     void queryClient.invalidateQueries({ queryKey: ["admin-bookings"] });
   }
 
@@ -271,7 +315,7 @@ function AdminPage() {
                       <th className="px-4 py-3">Contact</th>
                       <th className="px-4 py-3">Type</th>
                       <th className="px-4 py-3">Status</th>
-                      <th className="px-4 py-3" />
+                      <th className="px-4 py-3">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -279,14 +323,24 @@ function AdminPage() {
                       <tr key={b.id} className="border-b border-border last:border-0">
                         <td className="px-4 py-3 text-muted-foreground">
                           {b.consultation_slots?.starts_at
-                            ? new Date(b.consultation_slots.starts_at).toLocaleString("en-IN", {
-                                timeZone: "Asia/Kolkata",
-                              })
-                            : new Date(b.created_at).toLocaleDateString("en-IN")}
+                            ? formatDateTimeIST(b.consultation_slots.starts_at)
+                            : b.booking_type === "callback_request" && b.preferred_callback
+                              ? (
+                                  <span>
+                                    <span className="block text-xs text-muted-foreground/80">
+                                      Callback preference
+                                    </span>
+                                    {b.preferred_callback}
+                                  </span>
+                                )
+                              : formatDateTimeIST(b.created_at)}
                         </td>
                         <td className="px-4 py-3">
                           <div className="font-medium">{b.full_name}</div>
                           <div className="text-muted-foreground">{b.email}</div>
+                          {b.phone ? (
+                            <div className="text-xs text-muted-foreground">{b.phone}</div>
+                          ) : null}
                           <div className="text-xs text-muted-foreground">{b.company}</div>
                         </td>
                         <td className="px-4 py-3">
@@ -298,17 +352,28 @@ function AdminPage() {
                           <Badge>{b.status}</Badge>
                         </td>
                         <td className="px-4 py-3 text-right">
-                          <select
-                            className="rounded-md border border-border bg-background px-2 py-1 text-xs"
-                            value={b.status}
-                            onChange={(e) => void updateStatus(b.id, e.target.value)}
-                          >
-                            {["new", "confirmed", "completed", "cancelled"].map((s) => (
-                              <option key={s} value={s}>
-                                {s}
-                              </option>
-                            ))}
-                          </select>
+                          <div className="flex flex-col items-end gap-2 sm:flex-row sm:items-center">
+                            <select
+                              className="rounded-md border border-border bg-background px-2 py-1 text-xs"
+                              value={b.status}
+                              onChange={(e) => void updateStatus(b.id, e.target.value)}
+                            >
+                              {["new", "confirmed", "completed", "cancelled"].map((s) => (
+                                <option key={s} value={s}>
+                                  {s}
+                                </option>
+                              ))}
+                            </select>
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              className="h-8 text-xs text-destructive hover:text-destructive"
+                              onClick={() => void deleteBooking(b)}
+                            >
+                              Delete
+                            </Button>
+                          </div>
                         </td>
                       </tr>
                     ))}
