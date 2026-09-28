@@ -13,6 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import { adminFetch, getApiUrl } from "@/lib/api";
 import { getAccessToken, isAdminUser } from "@/lib/admin-auth";
+import { formatDateTimeIST, istDatetimeLocalToUtcIso } from "@/lib/ist-datetime";
 
 const title = "Admin: Sankalp";
 
@@ -33,20 +34,6 @@ export const Route = createFileRoute("/_authenticated/admin")({
 });
 
 const IST = "Asia/Kolkata";
-
-function formatDateTimeIST(iso: string) {
-  const formatted = new Date(iso).toLocaleString("en-IN", {
-    timeZone: IST,
-    weekday: "short",
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  });
-  return `${formatted} IST`;
-}
 
 type Booking = {
   id: string;
@@ -79,6 +66,21 @@ function AdminPage() {
         .order("created_at", { ascending: false });
       if (error) throw error;
       return (data ?? []) as Booking[];
+    },
+  });
+
+  const { data: upcomingSlots } = useQuery({
+    queryKey: ["admin-slots"],
+    queryFn: async () => {
+      const now = new Date().toISOString();
+      const { data, error } = await supabase
+        .from("consultation_slots")
+        .select("id, starts_at, ends_at, is_booked")
+        .gte("starts_at", now)
+        .order("starts_at", { ascending: true })
+        .limit(40);
+      if (error) throw error;
+      return data ?? [];
     },
   });
 
@@ -175,6 +177,7 @@ function AdminPage() {
     }
     toast.success("Lead deleted.");
     void queryClient.invalidateQueries({ queryKey: ["admin-bookings"] });
+    void queryClient.invalidateQueries({ queryKey: ["admin-slots"] });
   }
 
   async function saveMeetingUrl() {
@@ -191,18 +194,25 @@ function AdminPage() {
 
   async function addSlot() {
     if (!slotStart || !slotEnd) return;
-    const { error } = await supabase.from("consultation_slots").insert({
-      starts_at: new Date(slotStart).toISOString(),
-      ends_at: new Date(slotEnd).toISOString(),
-      is_booked: false,
-    });
-    if (error) {
-      toast.error("Could not add slot.");
-      return;
+    try {
+      const starts_at = istDatetimeLocalToUtcIso(slotStart);
+      const ends_at = istDatetimeLocalToUtcIso(slotEnd);
+      const { error } = await supabase.from("consultation_slots").insert({
+        starts_at,
+        ends_at,
+        is_booked: false,
+      });
+      if (error) {
+        toast.error("Could not add slot.");
+        return;
+      }
+      setSlotStart("");
+      setSlotEnd("");
+      toast.success(`Slot added for ${formatDateTimeIST(starts_at)}.`);
+      void queryClient.invalidateQueries({ queryKey: ["admin-slots"] });
+    } catch {
+      toast.error("Invalid start or end time.");
     }
-    setSlotStart("");
-    setSlotEnd("");
-    toast.success("Slot added.");
   }
 
   async function signOut() {
@@ -399,7 +409,34 @@ function AdminPage() {
               </div>
             </div>
             <div className="rounded-2xl border border-border bg-background p-5">
-              <h2 className="font-semibold">Add consultation slot (India Standard Time)</h2>
+              <h2 className="font-semibold">Upcoming slots (IST)</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Times shown here match what clients see on the landing page.
+              </p>
+              {(upcomingSlots ?? []).length === 0 ? (
+                <p className="mt-4 text-sm text-muted-foreground">No upcoming slots.</p>
+              ) : (
+                <ul className="mt-4 max-h-48 space-y-2 overflow-y-auto text-sm">
+                  {(upcomingSlots ?? []).map((s) => (
+                    <li
+                      key={s.id}
+                      className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-border px-3 py-2"
+                    >
+                      <span>{formatDateTimeIST(s.starts_at)}</span>
+                      <Badge variant={s.is_booked ? "secondary" : "outline"}>
+                        {s.is_booked ? "Booked" : "Open"}
+                      </Badge>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <div className="rounded-2xl border border-border bg-background p-5">
+              <h2 className="font-semibold">Add consultation slot</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Enter date and time in <strong>India Standard Time (IST)</strong>. We save IST
+                regardless of your laptop timezone.
+              </p>
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 <div>
                   <Label>Starts</Label>
