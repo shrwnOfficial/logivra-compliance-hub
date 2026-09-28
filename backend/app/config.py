@@ -14,6 +14,8 @@ class Settings(BaseSettings):
     default_meeting_url: str = ""
     cors_origins: str = "http://localhost:5173,http://localhost:3000,http://127.0.0.1:3000"
     from_email: str = "Sankalp <onboarding@resend.dev>"
+    # Off by default until a domain is verified in Resend (onboarding@resend.dev cannot reach clients).
+    send_booking_emails: bool = False
 
     @property
     def cors_origin_list(self) -> list[str]:

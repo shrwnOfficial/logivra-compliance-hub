@@ -1,6 +1,6 @@
 # Publish Sankalp (Vercel + Render + Supabase)
 
-Follow these steps in order. When done, founders can use **`/admin`** on the live site and **all three admins receive email** when someone books or requests a callback.
+Follow these steps in order. When done, founders use **`/admin`** on the live site to see new bookings and follow up manually. **Email is optional** (`SEND_BOOKING_EMAILS=true` only after a verified Resend domain).
 
 Reference template: [env.deploy.example](./env.deploy.example)
 
@@ -11,7 +11,7 @@ Reference template: [env.deploy.example](./env.deploy.example)
 - [ ] Code on GitHub `main` (`shrwnOfficial/logivra-compliance-hub`)
 - [ ] Supabase project with migrations already applied (you did this)
 - [ ] `ADMIN_SEED_PASSWORD='…' bun run seed:admins` run against **production** Supabase (same project as deploy)
-- [ ] [Resend](https://resend.com) account + API key; verify a sending domain for production mail (or use `onboarding@resend.dev` for limited testing)
+- [ ] (Optional later) [Resend](https://resend.com) + verified domain for automated booking email
 
 ---
 
@@ -27,10 +27,11 @@ Reference template: [env.deploy.example](./env.deploy.example)
 | `SUPABASE_URL` | `https://hawljlrbwjymhsrxzfaj.supabase.co` (your project) |
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Settings → API → **secret** key (full `sb_secret_…`) |
 | `SUPABASE_JWT_SECRET` | Supabase → Settings → API → **JWT Secret** |
-| `RESEND_API_KEY` | `re_…` from Resend |
-| `ADMIN_NOTIFY_EMAILS` | `shaan.09042@gmail.com,shivankrao7@gmail.com,suryashubohit@gmail.com` |
-| `FROM_EMAIL` | `Sankalp <onboarding@resend.dev>` or your verified domain |
-| `DEFAULT_MEETING_URL` | Google Meet / Zoom link for confirmation emails |
+| `SEND_BOOKING_EMAILS` | `false` for MVP (default); `true` when Resend domain is verified |
+| `RESEND_API_KEY` | (Optional) `re_…` from Resend |
+| `ADMIN_NOTIFY_EMAILS` | (Optional) founder inboxes when email is enabled |
+| `FROM_EMAIL` | (Optional) verified domain address, not `onboarding@resend.dev` for real recipients |
+| `DEFAULT_MEETING_URL` | Google Meet / Zoom link (for emails when enabled) |
 | `CORS_ORIGINS` | Your Vercel URL, e.g. `https://logivra-compliance-hub.vercel.app` (set after step 2 if unknown) |
 
 5. **Save** and wait for deploy. Copy the public URL, e.g. `https://sankalp-api.onrender.com`.
@@ -84,10 +85,12 @@ Reference template: [env.deploy.example](./env.deploy.example)
 | Landing | Open Vercel URL |
 | Admin login | `https://your-site.vercel.app/admin` → sign in with founder email + team password |
 | API from browser | DevTools → Network: booking should `POST` to `VITE_API_URL/api/bookings` |
-| Email | In **admin**, add a **future consultation slot** → on landing, book that slot → all three `ADMIN_NOTIFY_EMAILS` + client get mail (check Resend **Logs**) |
-| Callback | Submit callback form → same admin emails |
+| Leads | Book a slot → row appears in **/admin** → Bookings |
+| Callback | Submit callback form → same **/admin** list |
 
-**Slot bookings:** Clients must pick a slot created in admin (real UUID). Auto-generated fallback slots without the API do not send email.
+**Render API is required** for public slot booking (marks slots booked via service role). **Resend is not required** for MVP.
+
+**Slot bookings:** Clients must pick a slot from the API (real UUID). Auto-generated fallback slots without the API do not create valid bookings.
 
 ---
 
@@ -106,7 +109,8 @@ Reference template: [env.deploy.example](./env.deploy.example)
 | Symptom | Fix |
 |---------|-----|
 | `/admin` works locally, not on Vercel | Supabase redirect URLs + `VITE_SUPABASE_*` on Vercel |
-| Booking succeeds, no email | `VITE_API_URL` wrong; API down; missing `RESEND_API_KEY`; check Resend logs |
+| Booking succeeds, no row in admin | `VITE_API_URL` wrong; API down; check Render logs |
+| Email not sent (expected MVP) | `SEND_BOOKING_EMAILS=false`; use `/admin`. For mail later: verify domain + `SEND_BOOKING_EMAILS=true` |
 | CORS error in browser | `CORS_ORIGINS` on Render must match Vercel origin exactly |
 | `Slot is no longer available` | Pick a slot from admin; ensure API uses service role key |
 | Render 502 on first request | Free tier cold start — wait ~30s and retry |

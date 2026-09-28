@@ -96,17 +96,18 @@ async def create_booking(body: BookingCreate) -> dict[str, Any]:
     await db().patch("consultation_slots", {"is_booked": True}, f"id=eq.{body.slot_id}")
     meeting = await _meeting_url()
     starts_ist = _format_ist(slot["starts_at"])
-    try:
-        await notify_booking(
-            client_email=body.email,
-            client_name=body.full_name,
-            company=body.company,
-            starts_at_ist=starts_ist,
-            meeting_url=meeting,
-            booking_id=booking["id"],
-        )
-    except Exception:
-        pass
+    if settings.send_booking_emails:
+        try:
+            await notify_booking(
+                client_email=body.email,
+                client_name=body.full_name,
+                company=body.company,
+                starts_at_ist=starts_ist,
+                meeting_url=meeting,
+                booking_id=booking["id"],
+            )
+        except Exception:
+            pass
     return {"id": booking["id"], "starts_at": slot["starts_at"], "meeting_url": meeting}
 
 
@@ -128,18 +129,19 @@ async def create_callback(body: CallbackCreate) -> dict[str, str]:
     if not rows:
         raise HTTPException(status_code=500, detail="Could not save request")
     row = rows[0]
-    try:
-        await notify_callback_request(
-            client_email=body.email,
-            client_name=body.full_name,
-            company=body.company,
-            phone=body.phone,
-            preferred_callback=body.preferred_callback,
-            pollution_interests=body.pollution_interests,
-            booking_id=row["id"],
-        )
-    except Exception:
-        pass
+    if settings.send_booking_emails:
+        try:
+            await notify_callback_request(
+                client_email=body.email,
+                client_name=body.full_name,
+                company=body.company,
+                phone=body.phone,
+                preferred_callback=body.preferred_callback,
+                pollution_interests=body.pollution_interests,
+                booking_id=row["id"],
+            )
+        except Exception:
+            pass
     return {"id": row["id"]}
 
 

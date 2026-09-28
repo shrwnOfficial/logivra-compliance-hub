@@ -322,7 +322,7 @@ function AdminPage() {
             <div className="rounded-2xl border border-border bg-background p-5">
               <h2 className="font-semibold">Default Google Meet / Zoom URL</h2>
               <p className="mt-1 text-sm text-muted-foreground">
-                Included in confirmation emails when the API sends notifications.
+                Used when booking emails are enabled on the API (optional).
               </p>
               <div className="mt-4 flex flex-col gap-3 sm:flex-row">
                 <Input

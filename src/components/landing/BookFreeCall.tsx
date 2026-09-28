@@ -137,8 +137,8 @@ export function BookFreeCall() {
       setDone(true);
       toast.success(
         mode === "slot"
-          ? "Your free call is booked. Check your email for the meeting link."
-          : "We received your callback request.",
+          ? "Your free consultation is booked. Our team will contact you shortly."
+          : "We received your callback request. Our team will be in touch soon.",
       );
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong.");
@@ -170,7 +170,8 @@ export function BookFreeCall() {
           <div className="mx-auto mt-10 max-w-lg rounded-2xl bg-background/15 p-8 text-center backdrop-blur">
             <p className="text-lg font-medium text-primary-foreground">You are all set.</p>
             <p className="mt-2 text-sm text-primary-foreground/80">
-              We sent a confirmation to your email. Times are in India Standard Time.
+              Our team will reach out using the phone number or email you provided. Times are in
+              India Standard Time.
             </p>
             <button
               type="button"
